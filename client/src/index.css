@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Stack+Sans+Notch:wght@200..700&display=swap');
+@import "tailwindcss";
+
+*{
+  font-family: "Outfit", sans-serif;
+}
+
+/* body {
+    @apply bg-black text-white text-sm antialiased;
+} */
+
+@layer components {
+    /* .glass {
+        @apply bg-white/10 border border-white/20;
+    } */
+
+    .btn {
+        @apply cursor-pointer rounded-full px-8 py-2.5 font-medium text-white bg-black transition hover:opacity-90 active:scale-98;
+    }
+}
+
+@theme {
+    --color-app-text-light-color: var(--app-text-light-color);
+    --color-app-text-medium-color: var(--app-text-medium-color);
+    --color-app-icon-light-color: var(--app-icon-light-color);
+}
+
+:root {
+  --app-text-light-color: #918e8e;
+  --app-text-medium-color: #363636;
+  --app-icon-light-color: #363636;
+}
