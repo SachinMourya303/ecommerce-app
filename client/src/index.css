@@ -1,21 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Stack+Sans+Notch:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Pattaya&display=swap');
 @import "tailwindcss";
 
 *{
   font-family: "Outfit", sans-serif;
 }
 
-/* body {
-    @apply bg-black text-white text-sm antialiased;
-} */
+.colletion-title{
+     font-family: "Pattaya", sans-serif;
+}
 
 @layer components {
-    /* .glass {
-        @apply bg-white/10 border border-white/20;
-    } */
-
     .btn {
-        @apply cursor-pointer rounded-full px-8 py-2.5 font-medium text-white bg-black transition hover:opacity-90 active:scale-98;
+        @apply cursor-pointer rounded-full px-8 py-2.5 font-medium text-amber-500 bg-rose-900 border-2 border-amber-500 transition hover:opacity-90 active:scale-98;
     }
 }
 

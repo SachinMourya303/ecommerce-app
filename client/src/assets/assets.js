@@ -1,9 +1,22 @@
-import outfit_collection from './images/outfit-collection.jpg';
-import hero_section_background from './images/hero-section-background.jpg'
-import hero_section_background_mobile from './images/hero-section-background-mobile5.jpg'
+import model from './images/model.png'
+import auth_bg from './images/auth-bg.png'
+import category1 from './images/category1.png'
+import category2 from './images/category2.png'
+import category3 from './images/category3.png'
+import category4 from './images/category4.png'
+import category5 from './images/category5.png'
+import category6 from './images/category6.png'
 
 export const background = {
-    outfit_collection,
-    hero_section_background,
-    hero_section_background_mobile
+    model,
+    auth_bg,
 }
+
+export const category = [
+    { title: "Mens were", pic: category1 },
+    { title: "Western Dresses", pic: category2 },
+    { title: "Ethinc Were", pic: category3 },
+    { title: "Kids Were", pic: category4 },
+    { title: "Foot Were", pic: category5 },
+    { title: "Sunglasses", pic: category6 },
+]
