@@ -1,21 +1,21 @@
 import bcrypt from 'bcrypt';
 import Jwt from 'jsonwebtoken';
-import userModel from '../model/userModel.js';
+import sellerModel from '../model/sellerModel.js';
 
 
 export const signUp = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { companyname , sellername , email , phone , address , city , state , country , pincode , password } = req.body;
 
-        const user = await userModel.findOne({ email });
+        const user = await sellerModel.findOne({ email });
 
         if (user) {
             return res.status(409).json({ success: false, message: 'User already exists you can login' });
         }
 
-        const UserModel = new userModel({ name, email, password });
-        UserModel.password = await bcrypt.hash(password, 10);
-        await UserModel.save();
+        const SellerModel = new sellerModel({ companyname , sellername , email , phone , address , city , state , country , pincode , password });
+        SellerModel.password = await bcrypt.hash(password, 10);
+        await SellerModel.save();
         return res.status(200).json({ success: true, message: 'Account created successfully!' });
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message });
@@ -26,7 +26,7 @@ export const signIn = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await userModel.findOne({ email });
+        const user = await sellerModel.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ success: false, message: 'No user found please signup first' });

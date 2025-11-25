@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 import ConnectDB from './app/config/db.js';
-import userRoutes from './app/routes/userRoutes.js';
+import userRoutes from './app/routes/customerRoutes.js';
+import sellerRoutes from './app/routes/sellerRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -13,7 +14,8 @@ const LoadDB = async () => {
 }
 LoadDB();
 
-app.use('/auth', userRoutes);
+app.use('/customer', userRoutes);
+app.use('/seller' , sellerRoutes);
 
 const PORT = process.env.PORT || 3000;
 
