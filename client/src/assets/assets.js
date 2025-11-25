@@ -1,5 +1,4 @@
 import model from './images/model.png'
-import auth_bg from './images/auth-bg.png'
 import category1 from './images/category1.png'
 import category2 from './images/category2.png'
 import category3 from './images/category3.png'
@@ -9,7 +8,6 @@ import category6 from './images/category6.png'
 
 export const background = {
     model,
-    auth_bg,
 }
 
 export const category = [
