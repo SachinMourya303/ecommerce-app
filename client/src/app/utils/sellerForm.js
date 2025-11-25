@@ -20,15 +20,16 @@ export const sellerSignupRequest = async (dispatch, setSellerData, companyname, 
             password: "",
         });
     } catch (error) {
-        toast.error(error.message);
+        toast.error(error.response.data.message);
     }
 }
 
-export const sellerSigninRequest = async (email, password) => {
+export const sellerSigninRequest = async (navigate , email, password) => {
     try {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/seller/signin`, { email, password });
         toast.success(response.data.message);
+        navigate('/seller/dashboard');
     } catch (error) {
-        toast.error(error.message);
+        toast.error(error.response.data.message);
     }
 }

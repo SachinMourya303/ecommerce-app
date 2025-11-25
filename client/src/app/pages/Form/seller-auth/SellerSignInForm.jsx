@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { background } from '../../../../assets/assets'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Lock, Mail, User } from 'lucide-react';
 import { sellerSigninRequest } from '../../../utils/sellerForm';
@@ -11,8 +11,8 @@ const CustomerSignUpForm = () => {
         email: "",
         password: ""
     });
-    console.log(sellerData);
-    
+
+    const navigate = useNavigate();
 
     const onInputChange = (e) => {
         const { name, value } = e.target;
@@ -23,7 +23,7 @@ const CustomerSignUpForm = () => {
     const password = sellerData.password;
     const onsellerDataSubmit = async (e) => {
         e.preventDefault();
-        await sellerSigninRequest(email, password);
+        await sellerSigninRequest(navigate , email, password);
     }
 
     const inputData = [
