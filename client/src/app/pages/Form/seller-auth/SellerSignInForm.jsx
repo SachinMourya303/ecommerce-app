@@ -7,7 +7,6 @@ import { sellerSigninRequest } from '../../../utils/sellerForm';
 
 const CustomerSignUpForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
-    const dispatch = useDispatch();
     const [sellerData, setSellerData] = useState({
         email: "",
         password: ""
@@ -20,12 +19,11 @@ const CustomerSignUpForm = () => {
         setSellerData(prev => ({ ...prev, [name]: value }));
     }
 
-    const name = sellerData.name;
     const email = sellerData.email;
     const password = sellerData.password;
     const onsellerDataSubmit = async (e) => {
         e.preventDefault();
-        await sellerSigninRequest(dispatch, name, email, password);
+        await sellerSigninRequest(email, password);
     }
 
     const inputData = [
