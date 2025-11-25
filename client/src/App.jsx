@@ -9,10 +9,12 @@ import SellerSignUpForm from './app/pages/Form/seller-auth/SellerSignUpForm'
 import SellerSignInForm from './app/pages/Form/seller-auth/SellerSignInForm'
 import AdminSignUpForm from './app/pages/Form/admin/AdminSignUpForm'
 import AdminSignInForm from './app/pages/Form/admin/AdminSignInForm'
+import { Toaster } from 'react-hot-toast'
 
 const App = () => {
   return (
     <div>
+      <Toaster />
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
