@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { background } from '../../../../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { Lock, Mail, User } from 'lucide-react';
+import { Loader, Lock, Mail, User } from 'lucide-react';
 import { sellerSigninRequest } from '../../../utils/sellerForm';
 
 const CustomerSignUpForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
+    const loader = useSelector(state => state.userData.loader);
+    const dispatch = useDispatch();
     const [sellerData, setSellerData] = useState({
         email: "",
         password: ""
@@ -23,7 +25,7 @@ const CustomerSignUpForm = () => {
     const password = sellerData.password;
     const onsellerDataSubmit = async (e) => {
         e.preventDefault();
-        await sellerSigninRequest(navigate , email, password);
+        await sellerSigninRequest(dispatch , navigate , email, password);
     }
 
     const inputData = [
@@ -39,14 +41,16 @@ const CustomerSignUpForm = () => {
 
                     {
                         inputData.map((data, index) => (
-                            <div key={index} className={`w-full flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer px-2`}>
+                            <div key={index} className={`w-full flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 rounded-lg font-medium cursor-pointer px-2`}>
                                 <data.icon className='size-4' />
-                                <input onChange={onInputChange} name={data.InputName} value={data.InputValue} type={data.type} placeholder={data.placeholder} className='outline-none w-full' required />
+                                <input onChange={onInputChange} name={data.InputName} value={data.InputValue} type={data.type} placeholder={data.placeholder} className='outline-none w-full py-2.5' required />
                             </div>
                         ))
                     }
 
-                    <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>Create Account</button>
+                    <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
+                        { loader ? <Loader className='animate-spin'/> : 'Login' }
+                    </button>
                     <Link to='/account/type/seller/signup' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
 
                     <p className="text-center mt-4">Don't have an account! <Link to='/account/type/seller/signup' className="text-rose-900 underline">Signup</Link></p>
