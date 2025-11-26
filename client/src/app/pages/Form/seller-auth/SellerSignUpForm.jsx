@@ -6,7 +6,6 @@ import { sellerSignupRequest } from '../../../utils/sellerForm';
 
 const CustomerSignUpForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
-    const dispatch = useDispatch();
     const [sellerData, setSellerData] = useState({
         companyname: "",
         sellername: "",
@@ -38,7 +37,7 @@ const CustomerSignUpForm = () => {
     
     const onsellerDataSubmit = async (e) => {
         e.preventDefault();
-        await sellerSignupRequest(dispatch, setSellerData , companyname, sellername , email , phone , address , city , state , country , pincode , password);
+        await sellerSignupRequest(setSellerData , companyname, sellername , email , phone , address , city , state , country , pincode , password);
     }
 
     const inputData = [
@@ -62,9 +61,9 @@ const CustomerSignUpForm = () => {
                     <div className='w-[90%] md:w-[80%] flex max-md:flex-col md:flex-wrap justify-between'>
                         {
                         inputData.map((data , index) => (
-                            <div key={index} className={`w-full md:w-[45%] flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer px-2`}>
+                            <div key={index} className={`w-full md:w-[45%] flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 rounded-lg font-medium cursor-pointer px-2`}>
                                 <data.icon className='size-4' />
-                                <input onChange={onInputChange} name={data.InputName} value={data.InputValue} type={data.type} placeholder={data.placeholder} required className=' outline-none w-full' />
+                                <input onChange={onInputChange} name={data.InputName} value={data.InputValue} type={data.type} placeholder={data.placeholder} required className=' outline-none w-full py-2.5' />
                             </div>
                         ))
                     }

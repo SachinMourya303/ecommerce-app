@@ -11,6 +11,8 @@ import AdminSignUpForm from './app/pages/Form/admin/AdminSignUpForm'
 import AdminSignInForm from './app/pages/Form/admin/AdminSignInForm'
 import { Toaster } from 'react-hot-toast'
 import SellerDashboard from './app/pages/sellerDashboard'
+import Dashboard from './app/Resuable/Dashboard'
+import AddProduct from './app/Resuable/AddProduct'
 
 const App = () => {
   return (
@@ -31,7 +33,10 @@ const App = () => {
         <Route path="/account/type/admin/signup" element={<AdminSignUpForm />} />
         <Route path="/account/type/admin/signin" element={<AdminSignInForm />} />
 
-        <Route path='/seller/dashboard' element={<SellerDashboard />} />
+        <Route path='/account/seller/dashboard' element={<SellerDashboard />} >
+        <Route index element={<Dashboard />} />
+        <Route path='addproduct' element={<AddProduct />} />
+        </Route>
       </Routes>
     </div>
   )

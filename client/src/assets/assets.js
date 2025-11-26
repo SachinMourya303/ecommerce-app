@@ -18,3 +18,5 @@ export const category = [
     { title: "Foot Were", pic: category5 },
     { title: "Sunglasses", pic: category6 },
 ]
+
+export const uploadIcon = "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/uploadArea.png"

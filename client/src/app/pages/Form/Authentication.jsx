@@ -7,11 +7,12 @@ import { useSelector } from 'react-redux'
 const Authentication = () => {
     const navigate = useNavigate();
     const darkmode = useSelector(state => state.userData.darkmode);
+    const sellersData = useSelector(state => state.userData.sellersData);    
 
     const btn = [
-        { title: "Customer", href: "/account/type/customer/signup", icon: UserRound },
-        { title: "Seller", href: "/account/type/seller/signup", icon: Store },
-        { title: "Admin", href: "/account/type/admin/signup", icon: ShieldUser },
+        { title: "Customer", href: "/account/type/customer/signup", login: "/" , icon: UserRound },
+        { title: "Seller", href: "/account/type/seller/signup", login: "/account/seller/dashboard" , icon: Store },
+        { title: "Admin", href: "/account/type/admin/signup", login: "/" , icon: ShieldUser },
     ]
 
     return (
@@ -27,7 +28,7 @@ const Authentication = () => {
                 <div className='flex flex-col items-center'>
                     {
                         btn.map((auth, index) => (
-                            <button onClick={(e) => { e.preventDefault(); navigate(auth.href) }} key={index} className={`w-full flex items-center justify-center my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
+                            <button onClick={(e) => { e.preventDefault(); {sellersData ? navigate(auth.login) : navigate(auth.href);} }} key={index} className={`w-full flex items-center justify-center my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
                                 <div className='flex items-center justify-between w-full px-5'>
                                     <span>
                                         <auth.icon className='size-5' />
