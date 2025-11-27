@@ -13,7 +13,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './app/state-management/store.js';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

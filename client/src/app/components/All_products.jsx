@@ -1,9 +1,12 @@
-import { Trash2 } from 'lucide-react';
+import { BadgeInfo, Loader, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { productDelteRequest } from '../utils/productRequest';
 
 const All_products = () => {
     const products = useSelector(state => state.userData.products);
+    const dispatch = useDispatch();
+
     const loader = useSelector(state => state.userData.loader);
     const [message, setMessage] = useState("");
 
@@ -17,14 +20,20 @@ const All_products = () => {
         }
     })
 
+    const deleteProduct = async (id) => {
+        await productDelteRequest(dispatch , id);
+    }
+
     return (
         <div className="w-full flex-1 flex flex-col justify-between">
             <div className="md:w-[80%]">
                 <h2 className="pb-4 text-lg font-medium">All Products</h2>
                 {
                     message ?
-                        <div className='w-full border border-rose-200 bg-rose-100 p-3 mb-3 rounded-lg'>
-                            <span className='text-rose-800'>Your product submission is being reviewed and will be approved shortly.</span>
+                        <div className='w-full border border-blue-100 bg-blue-50 p-3 mb-3 rounded-lg'>
+                            <span className='text-blue-500 max-md:text-xs flex gap-2 md:items-center'> 
+                                <BadgeInfo className='size-5'/>
+                                Your product submission is being reviewed and will be approved shortly.</span>
                         </div>
                         : ""
                 }
@@ -52,11 +61,11 @@ const All_products = () => {
                                         <td className="px-4 py-3 max-sm:hidden capitalize">{product.productDetails.category}</td>
                                         <td className="px-4 py-3 max-sm:hidden">₹ {product.productDetails.price}</td>
                                         <td className="px-4 py-3 ">
-                                            {product.productDetails.valid === "false" ? 'Pending' : 'Valid'}
+                                            {product.productDetails.valid === false ? 'Pending' : 'Valid'}
                                         </td>
                                         <td className="px-4 py-3">
-                                            <label className="relative inline-flex items-center cursor-pointer text-gray-900">
-                                                <Trash2 className='size-4 text-red-500' />
+                                            <label onClick={() => deleteProduct(product._id)} className="relative inline-flex items-center cursor-pointer text-gray-900">
+                                                {loader ? <Loader className='size-4 text-red-500' /> : <Trash2 className='size-4 text-red-500' />}
                                             </label>
                                         </td>
                                     </tr>

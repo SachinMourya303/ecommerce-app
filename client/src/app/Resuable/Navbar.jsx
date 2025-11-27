@@ -17,8 +17,8 @@ const Navbar = ({user , logout}) => {
           }
     }
     return (
-        <div className={`flex items-center justify-between px-4 md:px-8 border-b border-amber-700 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-black'} transition-all duration-300`}>
-            <span className='text-xl'>{`${import.meta.env.VITE_WEBSITE_NAME}`}</span>
+        <div className={`flex items-center justify-between px-4 md:px-8 border-b border-amber-700 py-2 ${darkmode ? 'bg-black text-white' : 'bg-white text-black'} transition-all duration-300`}>
+            <div className='text-xl'>{`${import.meta.env.VITE_WEBSITE_NAME}`}</div>
             <div className={`flex items-center gap-5 ${darkmode ? 'text-white/70' : 'text-gray-500'}`}>
                 <p>{user}</p>
                 <Sun onClick={() => dispatch(setDarkmode(true))}/>
