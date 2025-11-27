@@ -16,6 +16,7 @@ const productSchema = new mongoose.Schema({
         category: { type: String , required: true },
         rating: { type: String , required: true },
         color: { type: String , required: true },
+        valid: { type: String , default: false }
     }
 });
 

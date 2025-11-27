@@ -14,7 +14,7 @@ productRoutes.post(
   ]),
   async (req, res) => {
     try {
-      const { name, price, sold_by, address, description, category, rating, color } = req.body;
+      const { name, price, sold_by, address, description, category, rating, color , valid } = req.body;
 
       if (!req.files.image1) {
         return res.status(400).json({
@@ -30,7 +30,7 @@ productRoutes.post(
 
       const product = new productModel({
         productImage: { image1, image2, image3, image4 },
-        productDetails: { name, price, sold_by, address, description, category, rating, color }
+        productDetails: { name, price, sold_by, address, description, category, rating, color , valid }
       });
 
       await product.save();
@@ -46,5 +46,14 @@ productRoutes.post(
     }
   }
 );
+
+productRoutes.get('get/all', async (req, res) => {
+  try {
+    const allProducts = await productModel.find({});
+    return res.status(200).json(allProducts);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+})
 
 export default productRoutes;
