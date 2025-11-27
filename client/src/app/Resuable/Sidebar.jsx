@@ -6,11 +6,10 @@ const Sidebar = ({sidebarLinks , menu , setMenu}) => {
     const darkmode = useSelector(state => state.userData.darkmode);
 
     return (
-        <div className={`${darkmode ? 'bg-black' : 'bg-white'} text-amber-700 lg:w-64 w-16 border-r md:h-screen text-base border-gray-300 pt-4 flex flex-col transition-all duration-300`}>
+        <div className={`${darkmode ? 'bg-black' : 'bg-white'} text-amber-700 lg:w-64 w-16 border-r border-b h-screen text-base border-amber-700 flex flex-col transition-all duration-300`}>
             {sidebarLinks.map((item, index) => (
                 <Link onClick={() => setMenu(item.name)} to={item.path} key={index}
-                    className={`flex items-center py-3 px-4 gap-3 
-            ${menu === item.name ? "border-r-4 md:border-r-[6px] bg-rose-500/10 border-amber-700 text-amber-700"
+                    className={`flex items-center py-3 px-4 gap-3 border-b ${menu === item.name ? "border-r-4 md:border-r-[6px] bg-rose-500/10 border-amber-700 text-amber-700"
                             : "hover:bg-rose-100/90"
                         }`
                     }
