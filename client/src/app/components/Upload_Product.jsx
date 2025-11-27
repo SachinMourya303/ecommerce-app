@@ -1,26 +1,19 @@
 import React, { useState } from 'react'
 import { uploadIcon } from '../../assets/assets'
 
-const Upload_Product = () => {
-
-    const [uploadImage, setUploadImage] = useState({
-        main_image: "",
-        related_image1: "",
-        related_image2: "",
-        related_image3: "",
-    });
+const Upload_Product = ({ productData, setProductData }) => {
 
     const uploadProductImageData = [
-        { id: "main-image" , title: "Product Image" },
-        { id: "related_image1" , title: "Related Image" },
-        { id: "related_image2" , title: "Related Image" },
-        { id: "related_image3" , title: "Related Image" },
+        { id: "image1" , title: "Product Image" },
+        { id: "image2" , title: "Related Image" },
+        { id: "image3" , title: "Related Image" },
+        { id: "image4" , title: "Related Image" },
     ]
 
     const onChange = (e) => {
         const id = e.target.id;
         const file = e.target.files[0];
-        setUploadImage(prev => ({ ...prev, [id]: file }));
+        setProductData(prev => ({ ...prev, [id]: file }));
     }
 
     return (
@@ -30,7 +23,7 @@ const Upload_Product = () => {
             <div className='flex flex-wrap gap-5 mt-10'>
                 {
                     uploadProductImageData.map((img, index) => {
-                        const file = uploadImage[img?.id];
+                        const file = productData[img?.id];
 
                         const preview = !file ? uploadIcon : URL.createObjectURL(file);
                         return (
