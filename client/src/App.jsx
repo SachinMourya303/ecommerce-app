@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query';
 import Navbar from './app/components/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import Homepage from './app/pages/Homepage'
@@ -13,8 +14,32 @@ import { Toaster } from 'react-hot-toast'
 import SellerDashboard from './app/pages/sellerDashboard'
 import Dashboard from './app/Resuable/Dashboard'
 import AddProduct from './app/Resuable/AddProduct'
+import { useDispatch } from 'react-redux'
+import { setLoader, setProducts } from './app/state-management/slices/userData';
+import All_products from './app/components/All_products';
+import axios from 'axios';
 
 const App = () => {
+
+  const dispatch = useDispatch();
+  const { data, isPending , error } = useQuery({
+    queryKey: ['users'],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/product/get/all`);
+      return res.data;
+    },
+    staleTime: 1000 * 60 * 1,
+    cacheTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
+  
+  useEffect(() => {
+    if (data) {
+      dispatch(setProducts(data));
+    }
+    dispatch(setLoader(isPending));
+  }, [data, isPending, dispatch]);
+
   return (
     <div>
       <Toaster />
@@ -34,8 +59,9 @@ const App = () => {
         <Route path="/account/type/admin/signin" element={<AdminSignInForm />} />
 
         <Route path='/account/seller/dashboard' element={<SellerDashboard />} >
-        <Route index element={<Dashboard />} />
-        <Route path='addproduct' element={<AddProduct />} />
+          <Route index element={<Dashboard />} />
+          <Route path='addproduct' element={<AddProduct />} />
+          <Route path='products' element={<All_products />} />
         </Route>
       </Routes>
     </div>

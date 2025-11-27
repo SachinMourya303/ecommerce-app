@@ -1,4 +1,4 @@
-import { BadgePlus, LayoutDashboard } from 'lucide-react';
+import { BadgePlus, LayoutDashboard, Shirt } from 'lucide-react';
 import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../Resuable/Navbar';
@@ -11,6 +11,7 @@ const SellerDashboard = () => {
      const sidebarLinks = [
         { name: "Dashboard", path: "/account/seller/dashboard", icon: LayoutDashboard },
         { name: "Add Product", path: "addproduct", icon: BadgePlus },
+        { name: "Products List", path: "products", icon: Shirt },
     ];
 
     const [menu , setMenu] = useState("Dashboard");    
