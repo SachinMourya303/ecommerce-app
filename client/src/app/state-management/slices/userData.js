@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     darkmode: false,
-    sellersData: [],
+    sellersData: null,
     loader: false,
     products: [],
 }

@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { setLoader } from '../state-management/slices/userData';
 import toast from 'react-hot-toast';
+import { queryClient } from '../../main';
 
 export const productPostRequest = async (setProductData, dispatch, productData) => {
+  dispatch(setLoader(true));
   try {
-    dispatch(setLoader(true));
-
     const formData = new FormData();
     formData.append("image1", productData.image1);
     formData.append("image2", productData.image2);
@@ -28,6 +28,7 @@ export const productPostRequest = async (setProductData, dispatch, productData) 
     );
 
     toast.success(response.data.message);
+    queryClient.invalidateQueries(['users']);
 
     setProductData({
       image1: "",
@@ -50,3 +51,18 @@ export const productPostRequest = async (setProductData, dispatch, productData) 
     dispatch(setLoader(false));
   }
 };
+
+
+export const productDelteRequest = async (dispatch , id) => {
+  dispatch(setLoader(true));
+  try {
+    const response = await axios.delete(`${import.meta.env.VITE_SERVER_URI}/product/delete`, { data:{ id } });
+    toast.success(response?.data?.message);
+    queryClient.invalidateQueries(['users']);
+  } catch (error) {
+    toast.error(error.response?.data?.message);
+  }
+  finally {
+    dispatch(setLoader(false));
+  }
+}
