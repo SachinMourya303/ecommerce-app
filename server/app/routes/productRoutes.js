@@ -47,7 +47,7 @@ productRoutes.post(
   }
 );
 
-productRoutes.get('get/all', async (req, res) => {
+productRoutes.get('/get/all', async (req, res) => {
   try {
     const allProducts = await productModel.find({});
     return res.status(200).json(allProducts);
