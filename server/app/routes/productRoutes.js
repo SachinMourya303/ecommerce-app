@@ -14,7 +14,7 @@ productRoutes.post(
   ]),
   async (req, res) => {
     try {
-      const { name, price, sold_by, address, description, category, rating, color , valid } = req.body;
+      const { company_email, name, price, sold_by, address, description, category, rating, color , valid } = req.body;
 
       if (!req.files.image1) {
         return res.status(400).json({
@@ -30,7 +30,7 @@ productRoutes.post(
 
       const product = new productModel({
         productImage: { image1, image2, image3, image4 },
-        productDetails: { name, price, sold_by, address, description, category, rating, color , valid }
+        productDetails: { company_email, name, price, sold_by, address, description, category, rating, color , valid }
       });
 
       await product.save();
