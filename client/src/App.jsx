@@ -12,14 +12,18 @@ import AdminSignUpForm from './app/pages/Form/admin/AdminSignUpForm'
 import AdminSignInForm from './app/pages/Form/admin/AdminSignInForm'
 import { Toaster } from 'react-hot-toast'
 import SellerDashboard from './app/pages/sellerDashboard'
-import Dashboard from './app/Resuable/Dashboard'
+import SellerHomePage from './app/Resuable/SellerHomePage'
 import AddProduct from './app/Resuable/AddProduct'
 import { useDispatch } from 'react-redux'
-import { setLoader, setProducts } from './app/state-management/slices/userData';
+import { setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
 import All_products from './app/components/All_products';
 import axios from 'axios';
-import { getSellerAccounts } from './app/utils/sellerForm';
+// import { getSellerAccounts } from './app/utils/sellerForm';
 import AdminDashboard from './app/pages/AdminDashboard';
+import AdminHomePage from './app/Resuable/AdminHomePage';
+import Admin_All_products from './app/Resuable/Admin_All_products';
+import Customers from './app/Resuable/Customers';
+import Sellers from './app/Resuable/Sellers';
 
 const App = () => {
 
@@ -35,17 +39,27 @@ const App = () => {
     refetchOnWindowFocus: false,
   });
 
-  const fetchAllSellersAccounts = async () => {
-    await getSellerAccounts(dispatch);
-  }
-
   useEffect(() => {
-    fetchAllSellersAccounts();
     if (data) {
       dispatch(setProducts(data));
     }
     dispatch(setLoader(isPending));
   }, [data, isPending, dispatch]);
+
+
+  const sellersQuery = useQuery({
+    queryKey: ['sellers'],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/seller/accounts`);
+      return res.data;
+    }
+  });
+
+  useEffect(() => {
+    if (sellersQuery.data) {
+      dispatch(setSellersAccounts(sellersQuery.data));
+    }
+  }, [sellersQuery.data]);
 
   return (
     <div>
@@ -66,15 +80,16 @@ const App = () => {
         <Route path="/account/type/admin/signin" element={<AdminSignInForm />} />
 
         <Route path='/account/seller/dashboard' element={<SellerDashboard />} >
-          <Route index element={<Dashboard />} />
+          <Route index element={<SellerHomePage />} />
           <Route path='addproduct' element={<AddProduct />} />
           <Route path='products' element={<All_products />} />
         </Route>
 
         <Route path='/account/admin/dashboard' element={<AdminDashboard />} >
-          <Route index element={<Dashboard />} />
-          <Route path='addproduct' element={<AddProduct />} />
-          <Route path='products' element={<All_products />} />
+          <Route index element={<AdminHomePage />} />
+          <Route path='products' element={<Admin_All_products />} />
+          <Route path='customers' element={<Customers />} />
+          <Route path='sellers' element={<Sellers />} />
         </Route>
       </Routes>
     </div>

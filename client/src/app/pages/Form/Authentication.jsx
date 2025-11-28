@@ -12,7 +12,7 @@ const Authentication = () => {
     const btn = [
         { title: "Customer", href: "/account/type/customer/signup", login: "/" , icon: UserRound },
         { title: "Seller", href: "/account/type/seller/signup", login: "/account/seller/dashboard" , icon: Store },
-        { title: "Admin", href: "/account/type/admin/signup", login: "/" , icon: ShieldUser },
+        { title: "Admin", href: "/account/type/admin/signin", login: "/" , icon: ShieldUser },
     ]
 
     return (
