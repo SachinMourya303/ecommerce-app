@@ -17,4 +17,25 @@ sellerRoutes.get('/accounts', async (req, res) => {
   }
 })
 
+sellerRoutes.delete('/delete', async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ success: false, message: "Product ID is required" });
+    }
+
+    const deletedItem = await sellerModel.findByIdAndDelete(id);
+
+    if (!deletedItem) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    return res.status(200).json({ success: true, message: "Product deleted successfully" });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default sellerRoutes;
