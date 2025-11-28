@@ -14,7 +14,7 @@ productRoutes.post(
   ]),
   async (req, res) => {
     try {
-      const { company_email, name, price, sold_by, address, description, category, rating, color , valid } = req.body;
+      const { company_email, name, price, sold_by, address, description, category, rating, color, valid } = req.body;
 
       if (!req.files.image1) {
         return res.status(400).json({
@@ -30,7 +30,7 @@ productRoutes.post(
 
       const product = new productModel({
         productImage: { image1, image2, image3, image4 },
-        productDetails: { company_email, name, price, sold_by, address, description, category, rating, color , valid }
+        productDetails: { company_email, name, price, sold_by, address, description, category, rating, color, valid }
       });
 
       await product.save();
@@ -74,6 +74,35 @@ productRoutes.delete('/delete', async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+productRoutes.put('/approve', async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ success: false, message: "Product ID is required" });
+    }
+
+    const updatedProduct = await productModel.findByIdAndUpdate(
+      id,
+      { $set: { "productDetails.valid": true } },
+      { new: true }
+    );
+
+    if (!updatedProduct) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Product approved",
+      data: updatedProduct
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
   }
 });
 
