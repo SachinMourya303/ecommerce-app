@@ -2,15 +2,18 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 
-const Sidebar = ({sidebarLinks , menu , setMenu}) => {
+const Sidebar = ({ sidebarLinks, menu, setMenu }) => {
     const darkmode = useSelector(state => state.userData.darkmode);
 
     return (
-        <div className={`${darkmode ? 'bg-black' : 'bg-white'} text-amber-700 lg:w-64 w-16 border-r border-b h-screen text-base border-amber-700 flex flex-col transition-all duration-300`}>
+        <div className={`${darkmode ? 'bg-black' : 'bg-rose-900 text-white'} lg:w-64 w-13 border-r border-b border-amber-700 h-screen text-base flex flex-col transition-all duration-300`}>
+            <div className='h-16 border-b border-amber-500 flex items-center px-4'>
+                <div className='text-xl'>{`${import.meta.env.VITE_WEBSITE_NAME}`}</div>
+            </div>
             {sidebarLinks.map((item, index) => (
                 <Link onClick={() => setMenu(item.name)} to={item.path} key={index}
-                    className={`flex items-center py-3 px-4 gap-3 border-b ${menu === item.name ? "border-r-4 md:border-r-[6px] bg-rose-500/10 border-amber-700 text-amber-700"
-                            : "hover:bg-rose-100/90"
+                    className={`flex items-center py-3 px-4 gap-3 border-b border-amber-500 ${menu === item.name ? "border-r-4 md:border-r-[6px] bg-rose-500/10"
+                        : "hover:bg-amber-500"
                         }`
                     }
                 >

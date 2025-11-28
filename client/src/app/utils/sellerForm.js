@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoader, setSellerData } from '../state-management/slices/userData';
+import { setLoader, setSellersAccounts, setSellersToken } from '../state-management/slices/userData';
 import toast from 'react-hot-toast';
 
 export const sellerSignupRequest = async (setSellerData, companyname, sellername, email, phone, address, city, state, country, pincode, password) => {
@@ -23,13 +23,26 @@ export const sellerSignupRequest = async (setSellerData, companyname, sellername
     }
 }
 
-export const sellerSigninRequest = async ( dispatch , navigate , email, password) => {
+export const sellerSigninRequest = async (dispatch, navigate, email, password) => {
     dispatch(setLoader(true));
     try {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/seller/signin`, { email, password });
-        await dispatch(setSellerData(response.data));
+        await dispatch(setSellersToken(response.data));
         toast.success(response.data.message);
         navigate('/account/seller/dashboard');
+    } catch (error) {
+        toast.error(error.response.data.message);
+    }
+    finally {
+        dispatch(setLoader(false));
+    }
+}
+
+export const getSellerAccounts = async (dispatch) => {
+    dispatch(setLoader(true));
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URI}/seller/accounts`);
+        dispatch(setSellersAccounts(response.data));
     } catch (error) {
         toast.error(error.response.data.message);
     }

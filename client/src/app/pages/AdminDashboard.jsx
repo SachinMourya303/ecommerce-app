@@ -5,7 +5,7 @@ import Navbar from '../Resuable/Navbar';
 import Sidebar from '../Resuable/Sidebar';
 import { useSelector } from 'react-redux';
 
-const SellerDashboard = () => {
+const AdminDashboard = () => {
   const darkmode = useSelector(state => state.userData.darkmode);
 
   const sidebarLinks = [
@@ -29,4 +29,4 @@ const SellerDashboard = () => {
   )
 }
 
-export default SellerDashboard
+export default AdminDashboard
