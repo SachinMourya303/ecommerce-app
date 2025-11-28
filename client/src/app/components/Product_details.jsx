@@ -7,11 +7,12 @@ const Product_details = ({ productForm, productData, setProductData }) => {
     const loader = useSelector(state => state.userData.loader);
 
     const productDetails = [
-        { id: "name", title: "Product Name", icon: Package },
-        { id: "price", title: "Product Price", icon: IndianRupee },
-        { id: "sold_by", title: "Sold By", icon: Store },
-        { id: "address", title: "Company Address", icon: MapPin },
-    ]
+        { id: "name", title: "Product Name", icon: Package, hide: false },
+        { id: "price", title: "Product Price", icon: IndianRupee, hide: false },
+        { id: "sold_by", title: productData.sold_by || "Sold By", icon: Store, hide: true },
+        { id: "address", title: productData.address || "Address", icon: MapPin, hide: true },
+    ];
+
 
     const dropdown = [
         {
@@ -91,7 +92,7 @@ const Product_details = ({ productForm, productData, setProductData }) => {
                     productDetails.map((data, index) => (
                         <div key={index} className={`w-full md:w-[49%] flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 rounded-lg font-medium cursor-pointer px-2`}>
                             < data.icon className='size-4' />
-                            <input onChange={onInputChange} value={productData[data.id]} name={data.id} required placeholder={data.title} className=' outline-none w-full py-2.5' />
+                            <input onChange={onInputChange} value={productData[data.id]} name={data.id} required placeholder={data.title} className={`outline-none w-full py-2.5 ${data.hide ? 'cursor-not-allowed' : ''}`} disabled={data.hide} />
                         </div>
                     ))
                 }

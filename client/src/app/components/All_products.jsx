@@ -5,6 +5,7 @@ import { productDelteRequest } from '../utils/productRequest';
 
 const All_products = () => {
     const products = useSelector(state => state.userData.products);
+    const sellersToken = useSelector(state => state.userData.sellersToken);
     const dispatch = useDispatch();
 
     const loader = useSelector(state => state.userData.loader);
@@ -21,7 +22,7 @@ const All_products = () => {
     })
 
     const deleteProduct = async (id) => {
-        await productDelteRequest(dispatch , id);
+        await productDelteRequest(dispatch, id);
     }
 
     return (
@@ -31,8 +32,8 @@ const All_products = () => {
                 {
                     message ?
                         <div className='w-full border border-blue-100 bg-blue-50 p-3 mb-3 rounded-lg'>
-                            <span className='text-blue-500 max-md:text-xs flex gap-2 md:items-center'> 
-                                <BadgeInfo className='size-5'/>
+                            <span className='text-blue-500 max-md:text-xs flex gap-2 md:items-center'>
+                                <BadgeInfo className='size-5' />
                                 Your product submission is being reviewed and will be approved shortly.</span>
                         </div>
                         : ""
@@ -49,19 +50,21 @@ const All_products = () => {
                             </tr>
                         </thead>
                         <tbody className="text-sm text-gray-500">
-                            {products.map((product, index) => {
+                            {products.filter((item) => item.productDetails.company_email === sellersToken.email).map((product, index) => {
                                 return (
-                                    <tr key={index} className="border-t border-gray-500/20">
+                                    <tr key={index} className="border-t border-gray-500/20 hover:bg-gray-100">
                                         <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                                             <div className="border border-gray-300 rounded overflow-hidden">
-                                                <img src={product.productImage.image1} alt="Product" className="w-16" />
+                                                <img src={product.productImage.image1} alt="Product" className="w-16 object-cover object-center" />
                                             </div>
                                             <span className="truncate max-sm:hidden w-full">{product.name}</span>
                                         </td>
                                         <td className="px-4 py-3 max-sm:hidden capitalize">{product.productDetails.category}</td>
                                         <td className="px-4 py-3 max-sm:hidden">₹ {product.productDetails.price}</td>
-                                        <td className="px-4 py-3 ">
-                                            {product.productDetails.valid === false ? 'Pending' : 'Valid'}
+                                        <td className="px-2 py-2 ">
+                                            {product.productDetails.valid === false ? 
+                                            <span className='bg-red-100 p-2 rounded-lg text-red-500 border border-red-200 cursor-not-allowed'>Pending</span> 
+                                            : <span className='bg-green-100 p-2 rounded-lg text-green-500 border border-green-200 cursor-not-allowed'>Approved</span>}
                                         </td>
                                         <td className="px-4 py-3">
                                             <label onClick={() => deleteProduct(product._id)} className="relative inline-flex items-center cursor-pointer text-gray-900">

@@ -18,11 +18,13 @@ import { useDispatch } from 'react-redux'
 import { setLoader, setProducts } from './app/state-management/slices/userData';
 import All_products from './app/components/All_products';
 import axios from 'axios';
+import { getSellerAccounts } from './app/utils/sellerForm';
+import AdminDashboard from './app/pages/AdminDashboard';
 
 const App = () => {
 
   const dispatch = useDispatch();
-  const { data, isPending , error } = useQuery({
+  const { data, isPending, error } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/product/get/all`);
@@ -32,8 +34,13 @@ const App = () => {
     cacheTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
-  
+
+  const fetchAllSellersAccounts = async () => {
+    await getSellerAccounts(dispatch);
+  }
+
   useEffect(() => {
+    fetchAllSellersAccounts();
     if (data) {
       dispatch(setProducts(data));
     }
@@ -59,6 +66,12 @@ const App = () => {
         <Route path="/account/type/admin/signin" element={<AdminSignInForm />} />
 
         <Route path='/account/seller/dashboard' element={<SellerDashboard />} >
+          <Route index element={<Dashboard />} />
+          <Route path='addproduct' element={<AddProduct />} />
+          <Route path='products' element={<All_products />} />
+        </Route>
+
+        <Route path='/account/admin/dashboard' element={<AdminDashboard />} >
           <Route index element={<Dashboard />} />
           <Route path='addproduct' element={<AddProduct />} />
           <Route path='products' element={<All_products />} />

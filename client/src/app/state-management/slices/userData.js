@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     darkmode: false,
-    sellersData: null,
+    sellersToken: null,
     loader: false,
     products: [],
+    sellersAccounts: null
 }
 
 const userSlice = createSlice({
@@ -14,8 +15,8 @@ const userSlice = createSlice({
         setDarkmode: (state) => {
             state.darkmode = !state.darkmode;
         },
-        setSellerData: (state, action) => {
-            state.sellersData = action.payload;
+        setSellersToken: (state, action) => {
+            state.sellersToken = action.payload;
         },
         setLoader: (state, action) => {
             state.loader = action.payload;
@@ -23,8 +24,11 @@ const userSlice = createSlice({
         setProducts: (state, action) => {
             state.products = action.payload;
         },
+        setSellersAccounts: (state, action) => {
+            state.sellersAccounts = action.payload;
+        },
     }
 })
 
-export const { setSellerData , setDarkmode , setLoader , setProducts } = userSlice.actions;
+export const { setSellersToken , setDarkmode , setLoader , setProducts , setSellersAccounts } = userSlice.actions;
 export default userSlice.reducer;

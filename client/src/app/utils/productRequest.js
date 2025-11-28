@@ -11,7 +11,7 @@ export const productPostRequest = async (setProductData, dispatch, productData) 
     formData.append("image2", productData.image2);
     formData.append("image3", productData.image3);
     formData.append("image4", productData.image4);
-
+    formData.append("company_email", productData.company_email);
     formData.append("name", productData.name);
     formData.append("price", productData.price);
     formData.append("sold_by", productData.sold_by);
@@ -35,6 +35,7 @@ export const productPostRequest = async (setProductData, dispatch, productData) 
       image2: "",
       image3: "",
       image4: "",
+      company_email: "",
       name: "",
       price: "",
       sold_by: "",
