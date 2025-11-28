@@ -1,4 +1,4 @@
-import { BadgePlus, LayoutDashboard, Shirt } from 'lucide-react';
+import { BadgePlus, LayoutDashboard, Shirt, Store, Users } from 'lucide-react';
 import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../Resuable/Navbar';
@@ -9,9 +9,10 @@ const AdminDashboard = () => {
   const darkmode = useSelector(state => state.userData.darkmode);
 
   const sidebarLinks = [
-    { name: "Dashboard", path: "/account/seller/dashboard", icon: LayoutDashboard },
-    { name: "Add Product", path: "addproduct", icon: BadgePlus },
+    { name: "Dashboard", path: "/account/admin/dashboard", icon: LayoutDashboard },
     { name: "Products List", path: "products", icon: Shirt },
+    { name: "Customers", path: "customers", icon: Users },
+    { name: "Sellers", path: "sellers", icon: Store },
   ];
 
   const [menu, setMenu] = useState("Dashboard");
@@ -21,7 +22,7 @@ const AdminDashboard = () => {
       <div className='flex'>
         <Sidebar sidebarLinks={sidebarLinks} menu={menu} setMenu={setMenu} />
         <div className='w-full'>
-          <Navbar user="Seller Account" logout="Seller" />
+          <Navbar user="Admin Account" logout="Admin" />
           <div className='m-2 md:m-5 w-[90%] md:w-[80%] md:h-screen'><Outlet /></div>
         </div>
       </div>

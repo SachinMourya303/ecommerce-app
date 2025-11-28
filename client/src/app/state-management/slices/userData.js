@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     darkmode: false,
     sellersToken: null,
+    adminToken: null,
     loader: false,
     products: [],
-    sellersAccounts: null
+    sellersAccounts: []
 }
 
 const userSlice = createSlice({
@@ -17,6 +18,9 @@ const userSlice = createSlice({
         },
         setSellersToken: (state, action) => {
             state.sellersToken = action.payload;
+        },
+        setAdminToken: (state, action) => {
+            state.adminToken = action.payload;
         },
         setLoader: (state, action) => {
             state.loader = action.payload;
@@ -30,5 +34,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setSellersToken , setDarkmode , setLoader , setProducts , setSellersAccounts } = userSlice.actions;
+export const { setSellersToken , setAdminToken , setDarkmode , setLoader , setProducts , setSellersAccounts } = userSlice.actions;
 export default userSlice.reducer;

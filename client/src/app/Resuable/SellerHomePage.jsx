@@ -1,7 +1,7 @@
 import React from 'react'
 import Analytics from '../components/Analytics'
 
-const Dashboard = () => {
+const SellerHomePage = () => {
   return (
     <>
     <Analytics />
@@ -9,4 +9,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default SellerHomePage

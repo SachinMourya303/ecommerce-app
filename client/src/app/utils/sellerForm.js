@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setLoader, setSellersAccounts, setSellersToken } from '../state-management/slices/userData';
+import { setLoader, setSellersToken } from '../state-management/slices/userData';
 import toast from 'react-hot-toast';
 
 export const sellerSignupRequest = async (setSellerData, companyname, sellername, email, phone, address, city, state, country, pincode, password) => {
@@ -35,18 +35,5 @@ export const sellerSigninRequest = async (dispatch, navigate, email, password) =
     }
     finally {
         dispatch(setLoader(false));
-    }
-}
-
-export const getSellerAccounts = async (dispatch) => {
-    dispatch(setLoader(true));
-    try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URI}/seller/accounts`);
-        dispatch(setSellersAccounts(response.data));
-    } catch (error) {
-        toast.error(error.response.data.message);
-    }
-    finally{
-    dispatch(setLoader(false));
     }
 }
