@@ -17,4 +17,25 @@ customerRoutes.get('/accounts', async (req, res) => {
     }
 })
 
+customerRoutes.delete('/delete', async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ success: false, message: "Customer ID is required" });
+    }
+
+    const deletedItem = await customerModel.findByIdAndDelete(id);
+
+    if (!deletedItem) {
+      return res.status(404).json({ success: false, message: "Customer not found" });
+    }
+
+    return res.status(200).json({ success: true, message: "Customer deleted successfully" });
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 export default customerRoutes;
