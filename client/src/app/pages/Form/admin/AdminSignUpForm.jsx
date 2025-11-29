@@ -5,7 +5,7 @@ import { customerSignupRequest } from '../../../utils/customerForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { Lock, Mail, User } from 'lucide-react';
 
-const CustomerSignUpForm = () => {
+const AdminSignUpForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
@@ -63,4 +63,4 @@ const CustomerSignUpForm = () => {
     )
 }
 
-export default CustomerSignUpForm
+export default AdminSignUpForm

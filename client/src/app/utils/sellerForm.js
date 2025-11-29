@@ -2,10 +2,12 @@ import axios from 'axios';
 import { setLoader, setSellersToken } from '../state-management/slices/userData';
 import toast from 'react-hot-toast';
 
-export const sellerSignupRequest = async (setSellerData, companyname, sellername, email, phone, address, city, state, country, pincode, password) => {
+export const sellerSignupRequest = async (setSellerData, navigate, dispatch, companyname, sellername, email, phone, address, city, state, country, pincode, password) => {
+    dispatch(setLoader(true));
     try {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/seller/signup`, { companyname, sellername, email, phone, address, city, state, country, pincode, password });
         toast.success(response.data.message);
+        navigate('/account/type/seller/signin');
         setSellerData({
             companyname: "",
             sellername: "",
@@ -20,6 +22,8 @@ export const sellerSignupRequest = async (setSellerData, companyname, sellername
         });
     } catch (error) {
         toast.error(error.response.data.message);
+    } finally {
+        dispatch(setLoader(false));
     }
 }
 

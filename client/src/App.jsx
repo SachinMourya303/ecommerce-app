@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import Navbar from './app/components/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import Homepage from './app/pages/Homepage'
-import Authentication from './app/pages/Form/authentication'
+import Authentication from './app/pages/Form/Authentication';
 import CustomerSignUpForm from './app/pages/Form/customer-auth/CustomerSignUpForm'
 import CustomerSignInForm from './app/pages/Form/customer-auth/CustomerSignInForm'
 import SellerSignUpForm from './app/pages/Form/seller-auth/SellerSignUpForm'

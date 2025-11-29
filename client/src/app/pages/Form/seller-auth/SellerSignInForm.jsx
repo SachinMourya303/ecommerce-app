@@ -51,7 +51,7 @@ const CustomerSignUpForm = () => {
                     <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
                         { loader ? <Loader className='animate-spin'/> : 'Login' }
                     </button>
-                    <Link to='/account/type/seller/signup' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
+                    <Link to='/account/type' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
 
                     <p className="text-center mt-4">Don't have an account! <Link to='/account/type/seller/signup' className="text-rose-900 underline">Signup</Link></p>
                 </form>

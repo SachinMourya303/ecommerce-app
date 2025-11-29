@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     darkmode: false,
+    customerToken: null,
     sellersToken: null,
     adminToken: null,
     loader: false,
@@ -15,6 +16,9 @@ const userSlice = createSlice({
     reducers: {
         setDarkmode: (state) => {
             state.darkmode = !state.darkmode;
+        },
+        setCustomerToken: (state, action) => {
+            state.customerToken = action.payload;
         },
         setSellersToken: (state, action) => {
             state.sellersToken = action.payload;
@@ -34,5 +38,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setSellersToken , setAdminToken , setDarkmode , setLoader , setProducts , setSellersAccounts } = userSlice.actions;
+export const { setCustomerToken , setSellersToken , setAdminToken , setDarkmode , setLoader , setProducts , setSellersAccounts } = userSlice.actions;
 export default userSlice.reducer;
