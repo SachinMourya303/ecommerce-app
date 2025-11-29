@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const Analytics = ({ analytics, customer }) => {
+const Analytics = ({ analytics }) => {
   const loader = useSelector(state => state.userData.loader);
 
   return (
@@ -11,7 +11,7 @@ const Analytics = ({ analytics, customer }) => {
       <div className='flex max-md:flex-col items-center gap-5'>
         {
           analytics.map((item, index) => (
-            <Link to={item.href} key={index} className='w-full md:w-60 flex flex-col bg-rose-700 p-5 rounded-lg border-t-5 border-b-5 border-amber-500 hover:rotate-5 transition duration-500'>
+            <Link to={item.href} key={index} className='w-60 flex flex-col bg-rose-700 p-5 rounded-lg border-t-5 border-b-5 border-amber-500 hover:rotate-5 transition duration-500'>
               <div className='w-full flex items-center justify-between gap-5'>
                 <span>{item.title}</span>
                 <item.icon />
@@ -23,19 +23,6 @@ const Analytics = ({ analytics, customer }) => {
           ))
         }
       </div>
-
-      {
-        customer &&
-        <Link to={customer.href} className='w-full mt-5 md:w-60 flex flex-col bg-rose-700 p-5 rounded-lg border-t-5 border-b-5 border-amber-500 hover:rotate-5 transition duration-500'>
-          <div className='w-full flex items-center justify-between gap-5'>
-            <span>{customer.title}</span>
-            <customer.icon />
-          </div>
-          <span className='bg-amber-500 mt-5 rounded-lg p-2 border-b-5 border-rose-900'>
-            {loader ? <Loader className='animate-spin' /> : customer.total}
-          </span>
-        </Link>
-      }
     </div>
   )
 }

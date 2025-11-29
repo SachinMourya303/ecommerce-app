@@ -6,7 +6,7 @@ const Sidebar = ({ sidebarLinks, menu, setMenu }) => {
     const darkmode = useSelector(state => state.userData.darkmode);
 
     return (
-        <div className={`${darkmode ? 'bg-black' : 'bg-rose-900 text-white'} lg:w-64 w-13 border-r border-b border-amber-700 h-screen text-base flex flex-col transition-all duration-300`}>
+        <div className={`${darkmode ? 'bg-black' : 'bg-rose-900 text-white'} lg:w-64 w-13 border-r-2 border-b border-amber-500 h-screen text-base flex flex-col transition-all duration-300`}>
             <div className='h-16 border-b border-amber-500 flex items-center px-4'>
                 <div className='text-xl'>{`${import.meta.env.VITE_WEBSITE_NAME}`}</div>
             </div>

@@ -21,10 +21,10 @@ const Navbar = ({ user, logout }) => {
         }
     }
     return (
-        <div className={`h-16 flex items-center justify-end px-4 md:px-8 border-b border-amber-500 py-2 ${darkmode ? 'bg-black text-white' : 'bg-white text-black'} transition-all duration-300`}>
+        <div className={`w-full h-16 flex items-center justify-end px-4 md:px-8 border-b border-amber-500 py-2 ${darkmode ? 'bg-black text-white' : 'bg-white text-black'} transition-all duration-300`}>
             <div className={`flex items-center gap-5 ${darkmode ? 'text-white/70' : 'text-gray-500'}`}>
                 <p className='bg-blue-50 border border-blue-100 rounded-full p-1 truncate text-blue-500 text-xs'>{user}</p>
-                <Sun onClick={() => dispatch(setDarkmode(true))} />
+                {/* <Sun onClick={() => dispatch(setDarkmode(true))} /> */}
                 <button onClick={logoutAccount} className='btn'>Logout</button>
             </div>
         </div>

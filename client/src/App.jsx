@@ -15,7 +15,7 @@ import SellerDashboard from './app/pages/sellerDashboard'
 import SellerHomePage from './app/Resuable/SellerHomePage'
 import AddProduct from './app/Resuable/AddProduct'
 import { useDispatch } from 'react-redux'
-import { setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
+import { setCustomersAccounts, setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
 import All_products from './app/components/All_products';
 import axios from 'axios';
 // import { getSellerAccounts } from './app/utils/sellerForm';
@@ -26,6 +26,7 @@ import Customers from './app/Resuable/Customers';
 import Sellers from './app/Resuable/Sellers';
 
 const App = () => {
+  // product get request
 
   const dispatch = useDispatch();
   const { data, isPending, error } = useQuery({
@@ -46,6 +47,7 @@ const App = () => {
     dispatch(setLoader(isPending));
   }, [data, isPending, dispatch]);
 
+  // seller get request
 
   const sellersQuery = useQuery({
     queryKey: ['sellers'],
@@ -60,6 +62,22 @@ const App = () => {
       dispatch(setSellersAccounts(sellersQuery.data));
     }
   }, [sellersQuery.data]);
+
+  // customer get request
+
+    const customerQuery = useQuery({
+    queryKey: ['customer'],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/customer/accounts`);
+      return res.data;
+    }
+  });
+
+  useEffect(() => {
+    if (customerQuery.data) {
+      dispatch(setCustomersAccounts(customerQuery.data));
+    }
+  }, [customerQuery.data]);
 
   return (
     <div>
