@@ -7,6 +7,7 @@ const initialState = {
     adminToken: null,
     loader: false,
     products: [],
+    customerAccounts: [],
     sellersAccounts: []
 }
 
@@ -32,11 +33,14 @@ const userSlice = createSlice({
         setProducts: (state, action) => {
             state.products = action.payload;
         },
+        setCustomersAccounts: (state, action) => {
+            state.customerAccounts = action.payload;
+        },
         setSellersAccounts: (state, action) => {
             state.sellersAccounts = action.payload;
         },
     }
 })
 
-export const { setCustomerToken , setSellersToken , setAdminToken , setDarkmode , setLoader , setProducts , setSellersAccounts } = userSlice.actions;
+export const { setCustomerToken , setSellersToken , setAdminToken , setDarkmode , setLoader , setProducts , setCustomersAccounts , setSellersAccounts } = userSlice.actions;
 export default userSlice.reducer;
