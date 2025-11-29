@@ -54,10 +54,24 @@ export const productPostRequest = async (setProductData, dispatch, productData) 
 };
 
 
-export const productDelteRequest = async (dispatch , id) => {
+export const productDelteRequest = async (dispatch, id) => {
   dispatch(setLoader(true));
   try {
-    const response = await axios.delete(`${import.meta.env.VITE_SERVER_URI}/product/delete`, { data:{ id } });
+    const response = await axios.delete(`${import.meta.env.VITE_SERVER_URI}/product/delete`, { data: { id } });
+    toast.success(response?.data?.message);
+    queryClient.invalidateQueries(['users']);
+  } catch (error) {
+    toast.error(error.response?.data?.message);
+  }
+  finally {
+    dispatch(setLoader(false));
+  }
+}
+
+export const updateValidity = async (dispatch, id) => {
+  dispatch(setLoader(true));
+  try {
+    const response = await axios.put(`${import.meta.env.VITE_SERVER_URI}/product/approve`, {id});
     toast.success(response?.data?.message);
     queryClient.invalidateQueries(['users']);
   } catch (error) {

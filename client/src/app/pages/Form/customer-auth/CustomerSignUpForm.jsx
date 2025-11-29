@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { background } from '../../../../assets/assets'
-import { Link } from 'react-router-dom'
-import { customerSignupRequest } from '../../../utils/customerForm';
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { Lock, Mail, User } from 'lucide-react';
+import { Loader, Lock, Mail, User } from 'lucide-react';
+import { customerSignupRequest } from '../../../utils/customerForm';
 
 const CustomerSignUpForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
-    const [message, setMessage] = useState("");
+    const loader = useSelector(state => state.userData.loader);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [customerData, setCustomerData] = useState({
         fullname: "",
@@ -20,12 +20,12 @@ const CustomerSignUpForm = () => {
         setCustomerData(prev => ({ ...prev, [name]: value }));
     }
 
-    const name = customerData.name;
+    const name = customerData.fullname;
     const email = customerData.email;
     const password = customerData.password;
     const onCustomerDataSubmit = async (e) => {
         e.preventDefault();
-        await customerSignupRequest(dispatch, setMessage, name, email, password);
+        await customerSignupRequest(dispatch, setCustomerData , navigate , name, email, password);
     }
 
     const inputData = [
@@ -40,10 +40,6 @@ const CustomerSignUpForm = () => {
                 <form onSubmit={onCustomerDataSubmit} className="w-full flex flex-col md:p-6 p-4 py-8 text-left text-sm">
                     <h2 className="text-2xl font-medium mb-6 text-center text-amber-500">Sign Up</h2>
 
-                    {message
-                        ? <div className='w-full flex justify-center border mt-1 bg-red-500/5 mb-2 border-red-500/10 outline-none rounded py-2.5 px-3 text-red-500'>{message}</div>
-                        : ""}
-
                     {
                         inputData.map((data, index) => (
                             <div key={index} className={`w-full flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer px-2`}>
@@ -53,8 +49,10 @@ const CustomerSignUpForm = () => {
                         ))
                     }
 
-                    <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>Create Account</button>
-                    <Link to='/account/type' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
+                    <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
+                        {loader ? <Loader className='animate-spin' /> : 'Create Account'}
+                    </button>
+                    <Link to='/account/type/customer/signin' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
 
                     <p className="text-center mt-4">Already have an account? <Link to='/account/type/customer/signin' className="text-rose-900 underline">Signin</Link></p>
                 </form>

@@ -7,13 +7,33 @@ import { useSelector } from 'react-redux'
 const Authentication = () => {
     const navigate = useNavigate();
     const darkmode = useSelector(state => state.userData.darkmode);
-    const sellersToken = useSelector(state => state.userData.sellersToken);    
+    const customerToken = useSelector(state => state.userData.customerToken);
+    const sellersToken = useSelector(state => state.userData.sellersToken);
+    const adminToken = useSelector(state => state.userData.adminToken);
 
     const btn = [
-        { title: "Customer", href: "/account/type/customer/signup", login: "/" , icon: UserRound },
-        { title: "Seller", href: "/account/type/seller/signup", login: "/account/seller/dashboard" , icon: Store },
-        { title: "Admin", href: "/account/type/admin/signin", login: "/" , icon: ShieldUser },
+        { title: "Customer", href: "/account/type/customer/signin", login: "/", icon: UserRound },
+        { title: "Seller", href: "/account/type/seller/signin", login: "/account/seller/dashboard", icon: Store },
+        { title: "Admin", href: "/account/type/admin/signin", login: "/account/admin/dashboard", icon: ShieldUser },
     ]
+
+    const navigateTo = (auth) => {
+        if (auth.title === "Customer") {
+            if (customerToken) return navigate(auth.login);
+            return navigate(auth.href);
+        }
+
+        if (auth.title === "Seller") {
+            if (sellersToken) return navigate(auth.login);
+            return navigate(auth.href);
+        }
+
+        if (auth.title === "Admin") {
+            if (adminToken) return navigate(auth.login);
+            return navigate(auth.href);
+        }
+    };
+
 
     return (
         <div className={`${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} absolute flex items-center justify-center flex items-center top-0 h-screen w-full`}>
@@ -28,7 +48,7 @@ const Authentication = () => {
                 <div className='flex flex-col items-center'>
                     {
                         btn.map((auth, index) => (
-                            <button onClick={(e) => { e.preventDefault(); {sellersToken ? navigate(auth.login) : navigate(auth.href);} }} key={index} className={`w-full flex items-center justify-center my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
+                            <button onClick={(e) => { e.preventDefault(); navigateTo(auth) }} key={index} className={`w-full flex items-center justify-center my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
                                 <div className='flex items-center justify-between w-full px-5'>
                                     <span>
                                         <auth.icon className='size-5' />

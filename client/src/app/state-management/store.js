@@ -7,7 +7,7 @@ import userReducer from './slices/userData';
 const authPersistConfig = {
   key: 'userData',
   storage,
-  whitelist: ['sellersToken' , 'darkmode'],
+  whitelist: [ 'customerToken' , 'sellersToken' , 'darkmode' , 'adminToken'],
 };
 
 const rootReducer = combineReducers({

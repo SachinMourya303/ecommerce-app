@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loader, Lock, Mail } from 'lucide-react';
 import { adminSigninRequest } from '../../../utils/adminForm';
 
-const CustomerSignUpForm = () => {
+const AdminSignInForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
     const loader = useSelector(state => state.userData.loader);
     const navigate = useNavigate();
@@ -57,4 +57,4 @@ const CustomerSignUpForm = () => {
     )
 }
 
-export default CustomerSignUpForm
+export default AdminSignInForm

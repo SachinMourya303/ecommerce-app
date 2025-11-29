@@ -1,5 +1,5 @@
 import React from 'react'
-import { setDarkmode, setSellersToken } from '../state-management/slices/userData'
+import { setAdminToken, setDarkmode, setSellersToken } from '../state-management/slices/userData'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Sun } from 'lucide-react'
@@ -16,7 +16,7 @@ const Navbar = ({ user, logout }) => {
             navigate('/account/type');
         }
         else if (logout === "Admin") {
-            dispatch(setSellersToken());
+            dispatch(setAdminToken());
             navigate('/account/type');
         }
     }

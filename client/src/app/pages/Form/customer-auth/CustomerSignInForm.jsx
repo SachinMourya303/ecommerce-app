@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { background } from '../../../../assets/assets'
-import { Link } from 'react-router-dom'
-import { customerSignupRequest } from '../../../utils/customerForm';
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { Lock, Mail, User } from 'lucide-react';
+import { Loader, Lock, Mail } from 'lucide-react';
+import { customerSigninRequest } from '../../../utils/customerForm';
 
 const CustomerSignUpForm = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
-    const [message, setMessage] = useState("");
+    const loader = useSelector(state => state.userData.loader);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [customerData, setCustomerData] = useState({
         email: "",
@@ -19,12 +19,12 @@ const CustomerSignUpForm = () => {
         setCustomerData(prev => ({ ...prev, [name]: value }));
     }
 
-    const name = customerData.name;
     const email = customerData.email;
     const password = customerData.password;
+
     const onCustomerDataSubmit = async (e) => {
         e.preventDefault();
-        await customerSignupRequest(dispatch, setMessage, name, email, password);
+        await customerSigninRequest(dispatch, navigate, email, password);
     }
 
     const inputData = [
@@ -36,11 +36,7 @@ const CustomerSignUpForm = () => {
         <div className={`${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} absolute flex items-center justify-center flex items-center top-0 h-screen w-full`}>
             <div className='absolute z-2 w-[95%] md:w-[40%] xl:w-[25%]'>
                 <form onSubmit={onCustomerDataSubmit} className="w-full flex flex-col md:p-6 p-4 py-8 text-left text-sm">
-                    <h2 className="text-2xl font-medium mb-6 text-center text-amber-500">Sign Up</h2>
-
-                    {message
-                        ? <div className='w-full flex justify-center border mt-1 bg-red-500/5 mb-2 border-red-500/10 outline-none rounded py-2.5 px-3 text-red-500'>{message}</div>
-                        : ""}
+                    <h2 className="text-2xl font-medium mb-6 text-center text-amber-500">Sign In</h2>
 
                     {
                         inputData.map((data, index) => (
@@ -51,8 +47,10 @@ const CustomerSignUpForm = () => {
                         ))
                     }
 
-                    <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>Create Account</button>
-                    <Link to='/account/type/customer/signup' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
+                    <button type='submit' className={`w-full flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
+                        {loader ? <Loader className='animate-spin' /> : 'Login'}
+                    </button>
+                    <Link to='/account/type' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
 
                     <p className="text-center mt-4">Don't have an account! <Link to='/account/type/customer/signup' className="text-rose-900 underline">Signup</Link></p>
                 </form>

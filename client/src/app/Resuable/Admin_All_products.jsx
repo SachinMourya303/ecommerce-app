@@ -1,17 +1,21 @@
 import { BadgeInfo, Loader, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { productDelteRequest } from '../utils/productRequest';
+import { productDelteRequest, updateValidity } from '../utils/productRequest';
 
 const Admin_All_products = () => {
-    const products = useSelector(state => state.userData.products);    
-    
+    const products = useSelector(state => state.userData.products);
+
     const dispatch = useDispatch();
 
     const loader = useSelector(state => state.userData.loader);
 
     const deleteProduct = async (id) => {
         await productDelteRequest(dispatch, id);
+    }
+
+    const approveProduct = async (id) => {
+        await updateValidity(dispatch, id);
     }
 
     return (
@@ -33,11 +37,11 @@ const Admin_All_products = () => {
                             {products.map((product, index) => {
                                 return (
                                     <tr key={index} className="border-t border-gray-500/20 hover:bg-gray-100">
-                                        <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
-                                            <div className="border border-gray-300 rounded overflow-hidden">
-                                                <img src={product.productImage.image1} alt="Product" className="w-16 object-cover object-center" />
+                                        <td className="md:px-4 pl-2 md:pl-4 py-3 truncate">
+                                            <div className="flex items-center gap-2 overflow-hidden">
+                                                <img src={product.productImage.image1} alt="Product" className="w-16 object-cover object-center border border-gray-300 rounded" />
+                                                <span className="truncate max-sm:hidden w-full">{product.productDetails.name}</span>
                                             </div>
-                                            <span className="truncate max-sm:hidden w-full">{product.productDetails.name}</span>
                                         </td>
                                         <td className="px-4 py-3 max-sm:hidden capitalize">{product.productDetails.category}</td>
                                         <td className="px-4 py-3 max-sm:hidden">₹ {product.productDetails.price}</td>
@@ -50,12 +54,20 @@ const Admin_All_products = () => {
                                             </div>
                                         </td>
                                         <td className="px-2 py-2">
-                                            <label onClick={() => deleteProduct(product._id)} className="relative inline-flex items-center cursor-pointer text-gray-900">
-                                                {loader ? <Loader className='size-4 text-rose-500' /> 
-                                                : <div>
-                                                    <span className='bg-blue-50 text-blue-500 border border-blue-100 rounded-lg p-2 active:scale-95'>Approve</span>
-                                                    {/* <span className='bg-green-50 text-green-500 border border-green-100 rounded-lg p-2 active:scale-95'>Approved</span> */}
-                                                </div> }
+                                            <label className="relative flex flex-col gap-2 cursor-pointer text-gray-900">
+                                                {loader ? <Loader className='size-4 text-rose-500' />
+                                                    : <div className='w-[75%]'>
+                                                        {
+                                                            product.productDetails.valid === true
+                                                                ? <button className='w-full bg-green-50 text-green-500 border border-green-100 rounded-lg p-2 active:scale-95 cursor-pointer'>Approved</button>
+                                                                : <button onClick={() => approveProduct(product._id)} className='w-full bg-blue-50 text-blue-500 border border-blue-100 rounded-lg p-2 active:scale-95 cursor-pointer'>Approve</button>
+                                                        }
+                                                    </div>}
+
+                                                {loader
+                                                    ? <Loader className='size-4 text-rose-500' />
+                                                    : <div className='flex w-[75%]'><button onClick={() => deleteProduct(product._id)} className='w-full bg-red-50 text-red-500 border border-red-100 rounded-lg p-2 active:scale-95 cursor-pointer'>Delete</button></div>
+                                                }
                                             </label>
                                         </td>
                                     </tr>
