@@ -63,7 +63,7 @@ const Navbar = () => {
 
             <div className='relative'>
                 {/* Mobile Menu */}
-                <div className={`${open ? 'flex' : 'hidden'} absolute z-10 top-0 left-0 bg-white h-screen w-full flex-col items-center`}>
+                <div onClick={() => setOpen(false)} className={`${open ? 'flex' : 'hidden'} absolute z-10 top-0 left-0 bg-white h-screen w-full flex-col items-center`}>
                     <div className='flex flex-col items-center'>
                         {
                             links.map((link, index) => (
