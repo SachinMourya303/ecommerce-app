@@ -1,11 +1,16 @@
 import { Loader, Trash2 } from 'lucide-react';
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { sellerDelteRequest } from '../utils/sellerForm';
 
 const Sellers = () => {
   const sellersAccounts = useSelector(state => state.userData.sellersAccounts);
-  
   const loader = useSelector(state => state.userData.loader);
+  const dispatch = useDispatch();
+
+  const deleteSeller = async (id) => {
+      await sellerDelteRequest(dispatch, id);
+    }
 
   return (
     <div className="w-full flex-1 flex flex-col justify-between">
@@ -45,7 +50,7 @@ const Sellers = () => {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <label onClick={() => deleteuser(user._id)} className="relative inline-flex items-center cursor-pointer text-gray-900">
+                      <label onClick={() => deleteSeller(user._id)} className="relative inline-flex items-center cursor-pointer text-gray-900">
                         {loader ? <Loader className='size-4 text-red-500' /> : <Trash2 className='size-4 text-red-500' />}
                       </label>
                     </td>

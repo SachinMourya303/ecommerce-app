@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { setCustomerToken, setLoader } from '../state-management/slices/userData';
+import { queryClient } from '../../main';
 
 export const customerSignupRequest = async (dispatch, setCustomerData, navigate, name, email, password) => {
     dispatch(setLoader(true));
@@ -32,4 +33,18 @@ export const customerSigninRequest = async (dispatch, navigate, email, password)
     } finally {
         dispatch(setLoader(false));
     }
+}
+
+export const customerDelteRequest = async (dispatch, id) => {
+  dispatch(setLoader(true));
+  try {
+    const response = await axios.delete(`${import.meta.env.VITE_SERVER_URI}/customer/delete`, { data: { id } });
+    toast.success(response?.data?.message);
+    queryClient.invalidateQueries(['customer']);
+  } catch (error) {
+    toast.error(error.response?.data?.message);
+  }
+  finally {
+    dispatch(setLoader(false));
+  }
 }
