@@ -35,10 +35,8 @@ const AdminHomePage = () => {
 
   return (
     <>
-      <div className='flex flex-col'>
         <Analytics analytics={analytics} />
         <Customer_pie_chart data={data} />
-      </div>
     </>
   )
 }

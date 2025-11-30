@@ -15,7 +15,7 @@ import SellerDashboard from './app/pages/sellerDashboard'
 import SellerHomePage from './app/Resuable/SellerHomePage'
 import AddProduct from './app/Resuable/AddProduct'
 import { useDispatch } from 'react-redux'
-import { setCustomersAccounts, setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
+import { setAdminAccounts, setCustomersAccounts, setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
 import All_products from './app/components/All_products';
 import axios from 'axios';
 // import { getSellerAccounts } from './app/utils/sellerForm';
@@ -24,6 +24,7 @@ import AdminHomePage from './app/Resuable/AdminHomePage';
 import Admin_All_products from './app/Resuable/Admin_All_products';
 import Customers from './app/Resuable/Customers';
 import Sellers from './app/Resuable/Sellers';
+import Admin from './app/Resuable/Admin';
 
 const App = () => {
   // product get request
@@ -79,6 +80,22 @@ const App = () => {
     }
   }, [customerQuery.data]);
 
+  // Admin get request
+
+  const adminQuery = useQuery({
+    queryKey: ['admin'],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/admin/accounts`);
+      return res.data;
+    }
+  });
+
+  useEffect(() => {
+    if (adminQuery.data) {
+      dispatch(setAdminAccounts(adminQuery.data));
+    }
+  }, [adminQuery.data]);
+
   return (
     <div>
       <Toaster />
@@ -108,6 +125,7 @@ const App = () => {
           <Route path='products' element={<Admin_All_products />} />
           <Route path='customers' element={<Customers />} />
           <Route path='sellers' element={<Sellers />} />
+          <Route path='admin' element={<Admin />} />
         </Route>
       </Routes>
     </div>

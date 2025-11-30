@@ -24,14 +24,21 @@ const Product_details = ({ productForm, productData, setProductData }) => {
                 { title: "Women Shirts", value: "Women Shirts" },
                 { title: "Kids Shirts", value: "Kids Shirts" },
                 { title: "Men T-shirts", value: "Men T-shirts" },
+                { title: "Women Top", value: "Women Top" },
                 { title: "Women T-shirts", value: "Women T-shirts" },
                 { title: "Kids T-shirts", value: "Kids T-shirts" },
+                { title: "Mens Jacket", value: "Mens Jacket" },
+                { title: "Womens Jacket", value: "Womens Jacket" },
+                { title: "Kids Jacket", value: "Kids Jacket" },
                 { title: "Men Pants", value: "Men Pants" },
                 { title: "Women Pants", value: "Women Pants" },
                 { title: "Kids Pants", value: "Kids Pants" },
+                { title: "Men Shorts", value: "Men Shorts" },
+                { title: "Kids Shorts", value: "Kids Shorts" },
                 { title: "Men Kurta", value: "Men Kurta" },
                 { title: "Women Kurti", value: "Women Kurti" },
                 { title: "Watches", value: "Watches" },
+                { title: "Sunglasses", value: "Sunglasses" },
                 { title: "Bags", value: "Bags" },
                 { title: "Footwear", value: "Footwear" },
                 { title: "Jewellery", value: "Jewellery" },
@@ -62,6 +69,7 @@ const Product_details = ({ productForm, productData, setProductData }) => {
         { id: "color", title: "White", value: "White" },
         { id: "color", title: "Pink", value: "Pink" },
         { id: "color", title: "Brown", value: "Brown" },
+        { id: "color", title: "Gray", value: "Gray" },
     ]
 
     const onInputChange = (e) => {
@@ -86,7 +94,7 @@ const Product_details = ({ productForm, productData, setProductData }) => {
     }
 
     return (
-        <form onSubmit={productForm} className='w-full flex flex-col md:w-[80%] mt-10'>
+        <form onSubmit={productForm} className='w-full flex flex-col md:w-[90%] md:pr-10 mt-10 md:h-100 md:overflow-y-scroll'>
             <div className='flex max-md:flex-col md:flex-wrap justify-between'>
                 {
                     productDetails.map((data, index) => (
