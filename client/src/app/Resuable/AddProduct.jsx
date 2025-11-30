@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Upload_Product from '../components/Upload_Product'
-import Product_details from '../components/product_details'
 import { productPostRequest } from '../utils/productRequest';
 import { useDispatch, useSelector } from 'react-redux';
+import Product_details from '../components/Product_details';
 
 const AddProduct = () => {
   const [seller, setSeller] = useState(null);
