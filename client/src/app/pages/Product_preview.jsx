@@ -42,7 +42,7 @@ const Product_preview = () => {
     const quantity = 1;
 
     const addToCartForm = async () => {
-        await addToCartRequest(dispatch, navigate, product_image, product_name, price, quantity);
+        await addToCartRequest(dispatch, product_image, product_name, price, quantity);
     }
 
     return (

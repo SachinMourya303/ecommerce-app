@@ -1,14 +1,22 @@
-import { ArrowLeft, X } from 'lucide-react'
+import { ArrowLeft, Loader, X } from 'lucide-react'
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartDelteRequest } from '../utils/cartForm';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const carts = useSelector(state => state.userData.carts);
+    const loader = useSelector(state => state.userData.loader);
+    const dispatch = useDispatch();
 
     const totalAmount = carts.reduce(
         (acc, item) => acc + Number(item.price) * item.quantity,
         0
     );
+
+    const delteCartProduct = async (id) => {
+        await cartDelteRequest(dispatch, id);
+    }
 
 
     return (
@@ -35,16 +43,18 @@ const Cart = () => {
                             </div>
                         </div>
                         <p className="text-center">${product.price * product.quantity}</p>
-                        <button className="cursor-pointer mx-auto border border-rose-500 rounded-full p-1">
-                            <X className='size-5 text-rose-700' />
+                        <button onClick={() => delteCartProduct(product._id)} className="cursor-pointer mx-auto border border-rose-500 rounded-full p-1">
+                            {
+                                loader ? <Loader className='animate-spin text-rose-700' /> : <X className='size-5 text-rose-700' />
+                            }
                         </button>
                     </div>)
                 )}
 
-                <button className="group cursor-pointer flex items-center mt-8 gap-2 text-rose-700 font-medium">
+                <Link to="/shop/products" className="group cursor-pointer flex items-center mt-8 gap-2 text-rose-700 font-medium">
                     <ArrowLeft />
                     Continue Shopping
-                </button>
+                </Link>
 
             </div>
 
