@@ -30,13 +30,13 @@ ordersRoutes.get('/products', async (req, res) => {
 
 ordersRoutes.delete('/delete', async (req, res) => {
     try {
-        const { email } = req.body;
+        const { id } = req.body;
 
         if (!id) {
             return res.status(400).json({ success: false, message: "Order ID is required" });
         }
 
-        const deletedItem = await ordersModel.findByIdAndDelete(email);
+        const deletedItem = await ordersModel.findByIdAndDelete(id);
 
         if (!deletedItem) {
             return res.status(404).json({ success: false, message: "Order not found" });
