@@ -1,18 +1,14 @@
 import toast from 'react-hot-toast';
 import { setLoader } from '../state-management/slices/userData';
+import axios from 'axios'
 // import { queryClient } from '../../main';
 
-export const addToCartRequest = async (dispatch, product_image, product_name, customer_name, customer_email, customer_phone, store, size, price, quantity, address, payment, status, country, state, city, pincode) => {
+export const addToCartRequest = async (dispatch, product_image, product_name, price, quantity) => {
     dispatch(setLoader(true));
     try {
-        const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/customer/cart`, { product_image, product_name, customer_name, customer_email, customer_phone, store, size, price, quantity, address, payment, status, country, state, city, pincode });
-        navigate('/myorders');
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URI}/cart/products`, {  product_image, product_name, price, quantity });
+        navigate('/cart');
         toast.success(response.data.message);
-        setCustomerData({
-            fullname: "",
-            email: "",
-            password: ""
-        })
     } catch (error) {
         toast.error(error?.response?.data?.message);
     } finally {
