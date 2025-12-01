@@ -3,19 +3,16 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 const Cart = () => {
-    const [showAddress, setShowAddress] = React.useState(false);
-
     const carts = useSelector(state => state.userData.carts);
-    console.log(carts);
-    
 
-    const products = [
-        { name: "Running Shoes", description: ["Lightweight and comfortable", "Breathable mesh upper", "Ideal for jogging and casual wear"], offerPrice: 250, price: 200, quantity: 1, size: 42, image: "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/card/productImage.png", category: "Footwear", },
-        { name: "Running Shoes", description: ["Lightweight and comfortable", "Breathable mesh upper", "Ideal for jogging and casual wear"], offerPrice: 250, price: 200, quantity: 1, size: 42, image: "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/card/productImage2.png", category: "Footwear", },
-        { name: "Running Shoes", description: ["Lightweight and comfortable", "Breathable mesh upper", "Ideal for jogging and casual wear"], offerPrice: 250, price: 200, quantity: 1, size: 42, image: "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/card/productImage3.png", category: "Footwear", },
-    ]
-  return (
-    <div className="flex flex-col md:flex-row mt-10 w-full px-6 md:px-16 2xl:px-96">
+    const totalAmount = carts.reduce(
+        (acc, item) => acc + Number(item.price) * item.quantity,
+        0
+    );
+
+
+    return (
+        <div className="flex flex-col md:flex-row mt-10 w-full px-6 md:px-16 2xl:px-96">
             <div className='w-[70%]'>
                 <h1 className="text-3xl font-medium mb-6">
                     Shopping Cart <span className="text-sm text-indigo-500">3 Items</span>
@@ -27,86 +24,43 @@ const Cart = () => {
                     <p className="text-center">Action</p>
                 </div>
 
-                {products.map((product, index) => (
+                {carts.map((product, index) => (
                     <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3">
                         <div className="flex items-center md:gap-6 gap-3">
                             <div className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded overflow-hidden">
-                                <img className="max-w-full h-full object-cover" src={product.image} alt={product.name} />
+                                <img className="max-w-full h-full object-cover" src={product.product_image} alt={product.product_name} />
                             </div>
                             <div>
-                                <p className="hidden md:block font-semibold">{product.name}</p>
-                                <div className="font-normal text-gray-500/70">
-                                    <p>Size: <span>{product.size || "N/A"}</span></p>
-                                    <div className='flex items-center'>
-                                        <p>Qty:</p>
-                                        <select className='outline-none'>
-                                            {Array(5).fill('').map((_, index) => (
-                                                <option key={index} value={index + 1}>{index + 1}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
+                                <p className="hidden md:block font-semibold">{product.product_name}</p>
                             </div>
                         </div>
-                        <p className="text-center">${product.offerPrice * product.quantity}</p>
+                        <p className="text-center">${product.price * product.quantity}</p>
                         <button className="cursor-pointer mx-auto border border-rose-500 rounded-full p-1">
-                            <X className='size-5 text-rose-700'/>
+                            <X className='size-5 text-rose-700' />
                         </button>
                     </div>)
                 )}
 
                 <button className="group cursor-pointer flex items-center mt-8 gap-2 text-rose-700 font-medium">
-                   <ArrowLeft />
+                    <ArrowLeft />
                     Continue Shopping
                 </button>
 
             </div>
 
-            <div className="w-[30%] bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70">
-                <h2 className="text-xl md:text-xl font-medium">Order Summary</h2>
-                <hr className="border-gray-300 my-5" />
-
-                <div className="mb-6">
-                    <p className="text-sm font-medium uppercase">Delivery Address</p>
-                    <div className="relative flex justify-between items-start mt-2">
-                        <p className="text-gray-500">No address found</p>
-                        <button onClick={() => setShowAddress(!showAddress)} className="text-rose-700 hover:underline cursor-pointer">
-                            Change
-                        </button>
-                        {showAddress && (
-                            <div className="absolute top-12 py-1 bg-white border border-gray-300 text-sm w-full">
-                                <p onClick={() => setShowAddress(false)} className="text-gray-500 p-2 hover:bg-gray-100">
-                                    New York, USA
-                                </p>
-                                <p onClick={() => setShowAddress(false)} className="text-indigo-500 text-center cursor-pointer p-2 hover:bg-indigo-500/10">
-                                    Add address
-                                </p>
-                            </div>
-                        )}
-                    </div>
-
-                    <p className="text-sm font-medium uppercase mt-6">Payment Method</p>
-
-                    <select className="w-full border border-gray-300 bg-white px-3 py-2 mt-2 outline-none">
-                        <option value="COD">Cash On Delivery</option>
-                        <option value="Online">Online Payment</option>
-                    </select>
-                </div>
-
+            <div className="w-[30%] h-70 bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70">
+                <h2 className="text-xl md:text-xl font-medium py-2">Order Summary</h2>
                 <hr className="border-gray-300" />
 
                 <div className="text-gray-500 mt-4 space-y-2">
                     <p className="flex justify-between">
-                        <span>Price</span><span>$20</span>
+                        <span>Price</span><span>{totalAmount}</span>
                     </p>
                     <p className="flex justify-between">
                         <span>Shipping Fee</span><span className="text-green-600">Free</span>
                     </p>
-                    <p className="flex justify-between">
-                        <span>Tax (2%)</span><span>$20</span>
-                    </p>
                     <p className="flex justify-between text-lg font-medium mt-3">
-                        <span>Total Amount:</span><span>$20</span>
+                        <span>Total Amount:</span><span>{totalAmount}</span>
                     </p>
                 </div>
 
@@ -115,7 +69,7 @@ const Cart = () => {
                 </button>
             </div>
         </div>
-  )
+    )
 }
 
 export default Cart

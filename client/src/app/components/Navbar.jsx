@@ -14,7 +14,6 @@ const Navbar = () => {
     const searchDropdown = useSelector(state => state.popup.searchDropdown);
     const darkmode = useSelector(state => state.userData.darkmode);
     const customerToken = useSelector(state => state.userData.customerToken);
-    console.log(customerToken);
     
     const [dropdown, setDropdown] = useState(false);
 
