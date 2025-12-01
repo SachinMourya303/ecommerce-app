@@ -30,6 +30,7 @@ import Category_preview from './app/pages/Category_preview';
 import Shop from './app/pages/Shop';
 import Cart from './app/pages/Cart';
 import Myorders from './app/pages/Myorders';
+import Customer_details from './app/pages/Customer_details';
 
 const App = () => {
   // product get request
@@ -153,6 +154,7 @@ const App = () => {
         <Route path='/myorders' element={<Myorders />} />
         <Route path='/product/:id' element={<Product_preview />} />
         <Route path='/product/category/type/:name' element={<Category_preview />} />
+        <Route path='/cart/customer/details' element={<Customer_details />} />
       </Routes>
     </div>
   )
