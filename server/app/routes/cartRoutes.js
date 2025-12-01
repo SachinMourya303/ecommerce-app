@@ -22,11 +22,14 @@ cartRoutes.post('/products', async (req, res) => {
 cartRoutes.get('/products', async (req, res) => {
     try {
         const { email } = req.body;
-        if (!email) {
-            return res.status(400).json({ success: false, message: "Customers emial is required" });
+        let customerCarts;
+        if (email) {
+            customerCarts = await cartModel.find({ email });
+            return res.status(200).json(customerCarts);
+        } else {
+            customerCarts = await cartModel.find({});
+            return res.status(200).json(customerCarts);
         }
-        const customerOrders = await cartModel.find({ email });
-        return res.status(200).json(customerOrders);
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
