@@ -31,13 +31,13 @@ cartRoutes.get('/products', async (req, res) => {
 
 cartRoutes.delete('/delete', async (req, res) => {
     try {
-        const { email } = req.body;
+        const { id } = req.body;
 
         if (!id) {
             return res.status(400).json({ success: false, message: "Cart ID is required" });
         }
 
-        const deletedItem = await cartModel.findByIdAndDelete(email);
+        const deletedItem = await cartModel.findByIdAndDelete(id);
 
         if (!deletedItem) {
             return res.status(404).json({ success: false, message: "Cart not found" });
