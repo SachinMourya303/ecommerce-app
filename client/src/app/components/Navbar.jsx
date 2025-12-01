@@ -14,7 +14,8 @@ const Navbar = () => {
     const searchDropdown = useSelector(state => state.popup.searchDropdown);
     const darkmode = useSelector(state => state.userData.darkmode);
     const customerToken = useSelector(state => state.userData.customerToken);
-    
+    const carts = useSelector(state => state.userData.carts);
+
     const [dropdown, setDropdown] = useState(false);
 
     const links = [
@@ -34,7 +35,7 @@ const Navbar = () => {
         { title: "Theme", value: "theme" },
     ]
 
-
+// const filterCustomer = carts.filter((item) => item.)
     return (
         <div>
             <nav className={`flex border-b border-gray-200 items-center justify-between px-6 md:px-16 2xl:px-96 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} relative transition-all`}>
@@ -103,9 +104,9 @@ const Navbar = () => {
                         }
                     </div>
                     {
-                        !customerToken 
-                        ? <button onClick={() => navigate('/account/type')} className="btn w-[90%] mt-10">Login</button>
-                        : <button onClick={() => dispatch(setCustomerToken(null))} className="btn w-[90%] mt-10">Logout</button>
+                        !customerToken
+                            ? <button onClick={() => navigate('/account/type')} className="btn w-[90%] mt-10">Login</button>
+                            : <button onClick={() => dispatch(setCustomerToken(null))} className="btn w-[90%] mt-10">Logout</button>
                     }
                 </div>
             </div>
