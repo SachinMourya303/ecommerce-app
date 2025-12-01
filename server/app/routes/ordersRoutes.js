@@ -20,16 +20,12 @@ ordersRoutes.post('/products', async (req, res) => {
 })
 
 ordersRoutes.get('/products', async (req, res) => {
-    try {
-        const { email } = req.body;
-        if (!email) {
-            return res.status(400).json({ success: false, message: "Order emial is required" });
-        }
-        const customerOrders = await ordersModel.find({ email });
-        return res.status(200).json(customerOrders);
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
+  try {
+    const orders = await ordersModel.find({});
+    return res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 })
 
 ordersRoutes.delete('/delete', async (req, res) => {

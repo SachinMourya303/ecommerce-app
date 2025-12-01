@@ -20,20 +20,14 @@ cartRoutes.post('/products', async (req, res) => {
 })
 
 cartRoutes.get('/products', async (req, res) => {
-    try {
-        const { email } = req.body;
-        let customerCarts;
-        if (email) {
-            customerCarts = await cartModel.find({ email });
-            return res.status(200).json(customerCarts);
-        } else {
-            customerCarts = await cartModel.find({});
-            return res.status(200).json(customerCarts);
-        }
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
+  try {
+    const cartProducts = await cartModel.find({});
+    return res.status(200).json(cartProducts);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 })
+
 
 cartRoutes.delete('/delete', async (req, res) => {
     try {
