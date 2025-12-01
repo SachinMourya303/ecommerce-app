@@ -5,10 +5,10 @@ const cartRoutes = express.Router();
 
 cartRoutes.post('/products', async (req, res) => {
     try {
-        const { product_image, product_name, price, quantity } = req.body;
+        const { customer_email, product_image, product_name, price, quantity } = req.body;
 
         const order = new cartModel({
-            product_image, product_name, price, quantity
+            customer_email, product_image, product_name, price, quantity
         });
 
         await order.save();
