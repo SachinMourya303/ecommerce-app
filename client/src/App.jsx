@@ -15,7 +15,7 @@ import SellerDashboard from './app/pages/sellerDashboard'
 import SellerHomePage from './app/Resuable/SellerHomePage'
 import AddProduct from './app/Resuable/AddProduct'
 import { useDispatch } from 'react-redux'
-import { setAdminAccounts, setCustomersAccounts, setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
+import { setAdminAccounts, setCart, setCustomersAccounts, setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
 import All_products from './app/components/All_products';
 import axios from 'axios';
 // import { getSellerAccounts } from './app/utils/sellerForm';
@@ -100,6 +100,21 @@ const App = () => {
       dispatch(setAdminAccounts(adminQuery.data));
     }
   }, [adminQuery.data]);
+
+  // Cart get request
+  const cartQuery = useQuery({
+    queryKey: ['cart'],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/cart/products`);
+      return res.data;
+    }
+  });
+
+  useEffect(() => {
+    if (cartQuery.data) {
+      dispatch(setCart(cartQuery.data));
+    }
+  }, [cartQuery.data]);
 
   return (
     <div>

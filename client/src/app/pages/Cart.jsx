@@ -1,8 +1,13 @@
 import { ArrowLeft, X } from 'lucide-react'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const Cart = () => {
-    const [showAddress, setShowAddress] = React.useState(false)
+    const [showAddress, setShowAddress] = React.useState(false);
+
+    const carts = useSelector(state => state.userData.carts);
+    console.log(carts);
+    
 
     const products = [
         { name: "Running Shoes", description: ["Lightweight and comfortable", "Breathable mesh upper", "Ideal for jogging and casual wear"], offerPrice: 250, price: 200, quantity: 1, size: 42, image: "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/card/productImage.png", category: "Footwear", },

@@ -11,7 +11,9 @@ const initialState = {
     sellersAccounts: [],
     adminAccounts: [],
     filterData: null,
-    category: null
+    category: null,
+    carts: [],
+    orders: [],
 }
 
 const userSlice = createSlice({
@@ -51,8 +53,14 @@ const userSlice = createSlice({
         setCategory: (state, action) => {
             state.category = action.payload;
         },
+        setCart: (state, action) => {
+            state.carts = action.payload;
+        },
+        setOrders: (state, action) => {
+            state.orders = action.payload;
+        },
     }
 })
 
-export const { setCustomerToken, setSellersToken, setAdminToken, setDarkmode, setLoader, setProducts, setCustomersAccounts, setSellersAccounts, setAdminAccounts , setFilterData , setCategory } = userSlice.actions;
+export const { setCustomerToken, setSellersToken, setAdminToken, setDarkmode, setLoader, setProducts, setCustomersAccounts, setSellersAccounts, setAdminAccounts , setFilterData , setCategory , setCart , setOrders } = userSlice.actions;
 export default userSlice.reducer;
