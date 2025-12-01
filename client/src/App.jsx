@@ -29,6 +29,7 @@ import Product_preview from './app/pages/Product_preview';
 import Category_preview from './app/pages/Category_preview';
 import Shop from './app/pages/Shop';
 import Cart from './app/pages/Cart';
+import Myorders from './app/pages/Myorders';
 
 const App = () => {
   // product get request
@@ -134,6 +135,7 @@ const App = () => {
 
         <Route path='/shop/products' element={<Shop />} />
         <Route path='/cart' element={<Cart />} />
+        <Route path='/myorders' element={<Myorders />} />
         <Route path='/product/:id' element={<Product_preview />} />
         <Route path='/product/category/type/:name' element={<Category_preview />} />
       </Routes>

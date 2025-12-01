@@ -32,6 +32,10 @@ const Product_preview = () => {
         }
     }, [product]);
 
+    const addToCartForm = async () => {
+        await cartForm
+    }
+
     return (
         <div>
             <div className={`${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} px-6 md:px-16 2xl:px-96 py-3 transition-all`}>
