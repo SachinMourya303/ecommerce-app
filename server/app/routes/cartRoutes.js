@@ -3,12 +3,12 @@ import cartModel from '../model/cartModel.js';
 
 const cartRoutes = express.Router();
 
-cartRoutes.post('/cart', async (req, res) => {
+cartRoutes.post('/products', async (req, res) => {
     try {
-        const { product_image, product_name, customer_name, customer_email, customer_phone, store, size, price, quantity, address, payment, status, country, state, city, pincode } = req.body;
+        const { product_image, product_name, size, price, quantity } = req.body;
 
         const order = new cartModel({
-            product_image, product_name, customer_name, customer_email, customer_phone, store, size, price, quantity, address, payment, status, country, state, city, pincode
+            product_image, product_name, size, price, quantity
         });
 
         await order.save();
@@ -19,7 +19,7 @@ cartRoutes.post('/cart', async (req, res) => {
     }
 })
 
-cartRoutes.get('/orders', async (req, res) => {
+cartRoutes.get('/products', async (req, res) => {
     try {
         const { email } = req.body;
         if (!email) {
@@ -52,3 +52,5 @@ cartRoutes.delete('/delete', async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
+
+export default cartRoutes;
