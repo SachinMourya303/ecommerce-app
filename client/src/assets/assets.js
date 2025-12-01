@@ -11,12 +11,12 @@ export const background = {
 }
 
 export const category = [
-    { title: "Mens were", pic: category1 },
-    { title: "Western Dresses", pic: category2 },
-    { title: "Ethinc Were", pic: category3 },
-    { title: "Kids Were", pic: category4 },
-    { title: "Foot Were", pic: category5 },
-    { title: "Sunglasses", pic: category6 },
+    { title: "Mens were", pic: category1, value: "Men" },
+    { title: "Western Dresses", pic: category2, value: "Women" },
+    { title: "Ethinc Were", pic: category3, value: "Saree" },
+    { title: "Kids Were", pic: category4, value: "Kids" },
+    { title: "Foot Were", pic: category5, value: "Footwere" },
+    { title: "Sunglasses", pic: category6, value: "Sunglasses" },
 ]
 
 export const uploadIcon = "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/uploadArea.png"

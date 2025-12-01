@@ -25,6 +25,10 @@ import Admin_All_products from './app/Resuable/Admin_All_products';
 import Customers from './app/Resuable/Customers';
 import Sellers from './app/Resuable/Sellers';
 import Admin from './app/Resuable/Admin';
+import Product_preview from './app/pages/Product_preview';
+import Category_preview from './app/pages/Category_preview';
+import Shop from './app/pages/Shop';
+import Cart from './app/pages/Cart';
 
 const App = () => {
   // product get request
@@ -127,6 +131,11 @@ const App = () => {
           <Route path='sellers' element={<Sellers />} />
           <Route path='admin' element={<Admin />} />
         </Route>
+
+        <Route path='/shop/products' element={<Shop />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/product/:id' element={<Product_preview />} />
+        <Route path='/product/category/type/:name' element={<Category_preview />} />
       </Routes>
     </div>
   )

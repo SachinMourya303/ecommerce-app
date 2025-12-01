@@ -1,29 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
-import { Star } from 'lucide-react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const Products = () => {
+const RelatedProducts = () => {
+    const navigate = useNavigate();
   const products = useSelector(state => state.userData.products);
-  const filterData = useSelector(state => state.userData.filterData);
-  const [allProducts, setAllProducts] = useState([]);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (filterData) {
-      const filteredProduct = products.filter((item) => item.productDetails.category.includes(filterData));
-      setAllProducts(filteredProduct);
-    }
-    else {
-      setAllProducts(products);
-    }
-  }, [products, filterData]);
-
+    const { id } = useParams();
+    const filterProduct = products.filter((item) => item._id === id);
   return (
-    <div className='mt-10 md:mt-20'>
-      <div className='md:p-5 flex flex-wrap gap-3'>
+    <div className='mt-10'>
+        <strong className='text-xl'>Related Products</strong>
+      <div className='flex flex-wrap gap-3 mt-5'>
         {
-          allProducts.slice(0, 15).map((item, index) => (
+          products.filter((item) => item?.productDetails?.category === filterProduct[0]?.productDetails?.category).map((item, index) => (
             <figure onClick={() => navigate(`/product/${item._id}`)} key={index} className='w-32 xl:w-60 border border-gray-200 rounded-lg overflow-hidden cursor-pointer'>
               <img src={item.productImage.image1} alt="product-img" className='w-full h-32 xl:h-60' />
               <figcaption className='flex flex-col gap-2 p-1 md:p-5'>
@@ -43,4 +32,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default RelatedProducts
