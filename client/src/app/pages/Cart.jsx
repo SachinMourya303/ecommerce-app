@@ -1,13 +1,15 @@
 import { ArrowLeft, Loader, X } from 'lucide-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { cartDelteRequest } from '../utils/cartForm';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const carts = useSelector(state => state.userData.carts);
     const loader = useSelector(state => state.userData.loader);
+    const customerToken = useSelector(state => state.userData.customerToken);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const totalAmount = carts.reduce(
         (acc, item) => acc + Number(item.price) * item.quantity,
@@ -18,8 +20,17 @@ const Cart = () => {
         await cartDelteRequest(dispatch, id);
     }
 
+    const [customerCart, setCustomerCart] = useState(null);
+    const fetchCustomerCart = () => {
+        const filterCustomer = carts.filter((item) => item?.customer_email === customerToken?.email);
+        setCustomerCart(filterCustomer);
+    }
 
-    return (
+    useEffect(() => {
+        fetchCustomerCart();
+    }, [carts]);
+
+    return customerCart ? (
         <div className="flex flex-col md:flex-row mt-10 w-full px-6 md:px-16 2xl:px-96">
             <div className='w-[70%]'>
                 <h1 className="text-3xl font-medium mb-6">
@@ -74,12 +85,12 @@ const Cart = () => {
                     </p>
                 </div>
 
-                <button className="w-full py-3 mt-6 cursor-pointer bg-rose-900 text-white font-medium hover:bg-indigo-600 transition">
-                    Place Order
+                <button onClick={() => navigate('/cart/customer/details')} className="w-full py-3 mt-6 cursor-pointer bg-rose-900 text-white font-medium hover:opacity-90 transition">
+                    Proceed
                 </button>
             </div>
         </div>
-    )
+    ) : "No Products yet"
 }
 
 export default Cart

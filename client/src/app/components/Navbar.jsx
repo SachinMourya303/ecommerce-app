@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { HashLink } from 'react-router-hash-link';
 import { Heart, Mail, Search, ShoppingCart, Sun, TextAlignEnd, User, X } from 'lucide-react'
 import Search_model from './Search_model'
@@ -35,7 +35,14 @@ const Navbar = () => {
         { title: "Theme", value: "theme" },
     ]
 
-// const filterCustomer = carts.filter((item) => item.)
+    const [cartCount , setCartCount] = useState(0);
+    const totalCartCount = () => {
+        const filterCustomer = carts.filter((item) => item?.customer_email === customerToken?.email);
+        setCartCount(filterCustomer);
+    }
+    useEffect(() => {
+       totalCartCount();
+    }, [carts]);
     return (
         <div>
             <nav className={`flex border-b border-gray-200 items-center justify-between px-6 md:px-16 2xl:px-96 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} relative transition-all`}>
@@ -63,7 +70,7 @@ const Navbar = () => {
                     </div>
                     <div onClick={() => navigate('/cart')} className="relative cursor-pointer">
                         <ShoppingCart className={`${darkmode ? 'text-white' : 'text-app-icon-light-color'}`} />
-                        <button className="absolute -top-2 -right-3 text-xs text-white bg-amber-500 w-[18px] h-[18px] rounded-full">3</button>
+                        <button className="absolute -top-2 -right-3 text-xs text-white bg-amber-500 w-[18px] h-[18px] rounded-full">{cartCount.length}</button>
                     </div>
 
                     {

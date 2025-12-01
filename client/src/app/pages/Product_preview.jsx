@@ -12,6 +12,8 @@ const Product_preview = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
     const loader = useSelector(state => state.userData.loader);
     const products = useSelector(state => state.userData.products);
+    const customerToken = useSelector(state => state.userData.customerToken);
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -35,14 +37,15 @@ const Product_preview = () => {
         }
     }, [product]);
 
-
+    const customer_email = customerToken?.email;
+    
     const product_image = images[0]?.image1;
     const product_name = filterProduct[0]?.productDetails?.name;
     const price = filterProduct[0]?.productDetails?.price;
     const quantity = 1;
 
     const addToCartForm = async () => {
-        await addToCartRequest(dispatch, product_image, product_name, price, quantity);
+        await addToCartRequest(dispatch, customerToken, customer_email, product_image, product_name, price, quantity);
     }
 
     return (
