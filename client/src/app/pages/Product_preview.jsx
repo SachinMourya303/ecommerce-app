@@ -1,7 +1,7 @@
 import { ChevronRight, Loader, MapPin, ShoppingCart, Store } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import RelatedProducts from '../components/RelatedProducts';
 import Footer from '../sections/Footer';
@@ -13,6 +13,7 @@ const Product_preview = () => {
     const loader = useSelector(state => state.userData.loader);
     const products = useSelector(state => state.userData.products);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const filterProduct = products.filter((item) => item._id === id);
 
@@ -41,7 +42,7 @@ const Product_preview = () => {
     const quantity = 1;
 
     const addToCartForm = async () => {
-        await addToCartRequest(dispatch, product_image, product_name, price, quantity);
+        await addToCartRequest(dispatch, navigate, product_image, product_name, price, quantity);
     }
 
     return (
@@ -77,14 +78,11 @@ const Product_preview = () => {
 
                         <div className='w-full flex justify-between mt-5 md:p-5'>
                             <div className='flex w-full justify-between'>
-                                {
-                                    loader 
-                                    ? <Loader className='animate-spin' />
-                                    : <button onClick={addToCartForm} className='flex gap-2 justify-center border border-rose-900 w-[49%] py-3 text-rose-900 hover:bg-rose-900 hover:text-white rounded-lg cursor-pointer truncate'>
-                                    <ShoppingCart />
-                                    Add to Cart
+                               <button onClick={addToCartForm} className='flex gap-2 justify-center border border-rose-900 w-[49%] py-3 text-rose-900 hover:bg-rose-900 hover:text-white rounded-lg cursor-pointer truncate'>
+                                    {
+                                        loader ? <Loader className='animate-spin' /> : <span className='flex gap-2'><ShoppingCart />Add to Cart</span>
+                                    }
                                 </button>
-                                }
                                 <button className='flex gap-2 justify-center bg-rose-900 w-[49%] py-3 text-white rounded-lg hover:opacity-90 cursor-pointer truncate'>
                                     Buy Now
                                     <ChevronRight />
