@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const cartSchema = new mongoose.Schema({
+    customer_email: { type: String , required: true },
     product_image : { type: String , required: true },
     product_name: { type: String , required: true },
     price: { type: String, required: true },
