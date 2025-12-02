@@ -8,6 +8,7 @@ import adminRoutes from './app/routes/adminRoutes.js';
 import customerRoutes from './app/routes/customerRoutes.js';
 import cartRoutes from './app/routes/cartRoutes.js';
 import ordersRoutes from './app/routes/ordersRoutes.js';
+import paymentRoutes from './app/routes/paymetRoutes.js';
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,7 @@ app.use('/admin' , adminRoutes);
 app.use('/product' , productRoutes);
 app.use('/cart' , cartRoutes);
 app.use('/orders' , ordersRoutes);
+app.use('/payment' , paymentRoutes)
 
 const PORT = process.env.PORT || 3000;
 
