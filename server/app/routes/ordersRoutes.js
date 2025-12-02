@@ -5,27 +5,27 @@ const ordersRoutes = express.Router();
 
 ordersRoutes.post('/products', async (req, res) => {
     try {
-        const { product_image, product_name, customer_name, customer_email, customer_phone, store, size, price, quantity, address, payment, status, country, state, city, pincode } = req.body;
+        const { customer_name, customer_email, customer_phone, address, landmark, payment, status, country, state, city, pincode, products } = req.body;
 
         const order = new ordersModel({
-            product_image, product_name, customer_name, customer_email, customer_phone, store, size, price, quantity, address, payment, status, country, state, city, pincode
+            customer_name, customer_email, customer_phone, address, landmark, payment, status, country, state, city, pincode, products
         });
 
         await order.save();
 
-        return res.status(200).json({ success: true, message: "Added to orders" });
+        return res.status(200).json({ success: true, message: "Order placed successfully!" });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
 })
 
 ordersRoutes.get('/products', async (req, res) => {
-  try {
-    const orders = await ordersModel.find({});
-    return res.status(200).json(orders);
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
+    try {
+        const orders = await ordersModel.find({});
+        return res.status(200).json(orders);
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
 })
 
 ordersRoutes.delete('/delete', async (req, res) => {
