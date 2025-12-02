@@ -17,7 +17,18 @@ cartRoutes.post('/products', async (req, res) => {
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
-})
+});
+
+cartRoutes.post('/delete-all', async (req, res) => {
+    try {
+        const { customer_email } = req.body;
+        await cartModel.deleteMany({ customer_email });
+        return res.status(200).json({ success: true, message: "Cart cleared" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 
 cartRoutes.get('/products', async (req, res) => {
   try {
