@@ -18,10 +18,10 @@ export const placeOrderRequest = async (dispatch, navigate, customer_name, custo
     }
 }
 
-export const cartDelteRequest = async (dispatch, id) => {
+export const orderDelteRequest = async (dispatch, id) => {
     dispatch(setLoader(true));
     try {
-        const response = await axios.delete(`${import.meta.env.VITE_SERVER_URI}/cart/delete`, { data: { id } });
+        const response = await axios.delete(`${import.meta.env.VITE_SERVER_URI}/orders/delete`, { data: { id } });
         toast.success(response?.data?.message);
         queryClient.invalidateQueries(['orders']);
     } catch (error) {

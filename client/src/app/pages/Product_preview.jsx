@@ -86,9 +86,10 @@ const Product_preview = () => {
                                         loader ? <Loader className='animate-spin' /> : <span className='flex gap-2'><ShoppingCart />Add to Cart</span>
                                     }
                                 </button>
-                                <button className='flex gap-2 justify-center bg-rose-900 w-[49%] py-3 text-white rounded-lg hover:opacity-90 cursor-pointer truncate'>
-                                    Buy Now
-                                    <ChevronRight />
+                                <button onClick={() => {addToCartForm(); navigate('/cart/customer/details')}} className='flex gap-2 justify-center bg-rose-900 w-[49%] py-3 text-white rounded-lg hover:opacity-90 cursor-pointer truncate'>
+                                    {
+                                        loader ? <Loader className='animate-spin' /> : <span className='flex gap-2'> Buy Now <ChevronRight /></span>
+                                    }
                                 </button>
                             </div>
                         </div>

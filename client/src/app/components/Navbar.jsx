@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { HashLink } from 'react-router-hash-link';
-import { Heart, Mail, Search, ShoppingCart, Sun, TextAlignEnd, User, X } from 'lucide-react'
+import { Heart, Mail, Search, SearchIcon, ShoppingCart, Sun, TextAlignEnd, User, X } from 'lucide-react'
 import Search_model from './Search_model'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchDropdown } from '../state-management/slices/popup'
 import { useNavigate } from 'react-router-dom';
 import { setCustomerToken, setDarkmode } from '../state-management/slices/userData';
+import { logos } from '../../assets/assets';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -21,19 +22,19 @@ const Navbar = () => {
     const links = [
         { title: "Home", href: "/" },
         { title: "Shop", href: "/shop/products" },
-        { title: "New-Collection", href: "#products" },
-        { title: "Category", href: "#category" },
+        { title: "New-Collection", href: "/#products" },
+        { title: "Category", href: "/#category" },
         { title: "MyOrders", href: "/myorders" },
-        { title: "Contact", href: "#contact" },
+        { title: "Contact", href: "/#contact" },
     ]
 
     const mobileLinks = [
         { title: "Home", href: "/" },
         { title: "Shop", href: "/shop/products" },
-        { title: "New-Collection", href: "#products" },
-        { title: "Category", href: "#category" },
+        { title: "New-Collection", href: "/#products" },
+        { title: "Category", href: "/#category" },
         { title: "MyOrders", href: "/myorders" },
-        { title: "Contact", href: "#contact" },
+        { title: "Contact", href: "/#contact" },
         { title: "Theme", value: "theme" },
     ]
 
@@ -45,30 +46,36 @@ const Navbar = () => {
     useEffect(() => {
        totalCartCount();
     }, [carts]);
+
+    const [searched , setSearched] = useState("");
+    console.log(searched);
+    
+    
     return (
         <div>
-            <nav className={`flex border-b border-gray-200 items-center justify-between px-6 md:px-16 2xl:px-96 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} relative transition-all`}>
+            <nav className={`flex border-b border-gray-200 items-center justify-between px-2 md:px-16 2xl:px-96 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} relative transition-all`}>
 
-                <span className='website logo text-3xl text-amber-500'>Amber</span>
+                <figure className='h-8'>
+                    <img src={darkmode ? logos.logo2 : logos.logo1} alt="logo" className='h-full' />
+                </figure>
 
                 {/* Desktop Menu */}
 
-                <div onClick={() => dispatch(setSearchDropdown(true))} className="hidden xl:w-[30%] lg:flex items-center text-sm gap-2 border-2 border-amber-500 px-3 rounded-full">
-                    <input className="py-1.5 w-full bg-transparent outline-none placeholder-amber-500" type="text" placeholder="Search products" />
+                <div className="hidden xl:w-[30%] xl:flex items-center text-sm gap-2 border-2 border-amber-500 px-3 rounded-full">
+                    <input onChange={(e) => setSearched(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1).toLowerCase())} name='searchbar' value={searched} className="capitalize py-1.5 w-full bg-transparent outline-none placeholder-amber-500" type="text" placeholder="Search products" />
                     <Search className='text-amber-500' />
                 </div>
 
-                <div className="hidden sm:flex items-center gap-8">
+                <div className="hidden lg:flex items-center gap-8">
                     {
                         links.map((link, index) => (
                             <HashLink smooth key={index} to={link.href} className='truncate hover:text-amber-500'>{link.title}</HashLink>
                         ))
                     }
                 </div>
-                <div className='flex gap-5 items-center'>
-                    <div className="relative cursor-pointer">
-                        <Heart onClick={() => dispatch(setDarkmode())} className={`${darkmode ? 'text-white' : 'text-app-icon-light-color'}`} />
-                        <button className="absolute -top-2 -right-3 text-xs text-white bg-amber-500 w-[18px] h-[18px] rounded-full">3</button>
+                <div className='flex gap-2 md:gap-5 items-center'>
+                    <div onClick={() => navigate('/cart')} className="relative cursor-pointer xl:hidden">
+                        <SearchIcon className={`${darkmode ? 'text-white' : 'text-app-icon-light-color'}`} />
                     </div>
                     <div onClick={() => navigate('/cart')} className="relative cursor-pointer">
                         <ShoppingCart className={`${darkmode ? 'text-white' : 'text-app-icon-light-color'}`} />
@@ -83,7 +90,7 @@ const Navbar = () => {
                                 <div>
                                     {
                                         dropdown &&
-                                        <div className='absolute z-1 top-15 rounded-lg text-gry-500 bg-white border border-gray-200 py-2 px-5 right-10'>
+                                        <div className='absolute z-1 top-15 rounded-lg text-gray-500 bg-white border border-gray-200 py-2 px-5 right-10'>
                                             <div className='flex flex-col'>
                                                 <span className='flex items-center gap-2 border-b border-gray-200 hover:bg-amber-100 py-2 hover:rounded-lg'> <User className='size-5' /> {customerToken.name}</span>
                                                 <span className='flex items-center gap-2 border-b border-gray-200 hover:bg-amber-100 py-2 hover:rounded-lg'> <Mail className='size-5' /> {customerToken.email}</span>
@@ -120,7 +127,7 @@ const Navbar = () => {
                 </div>
             </div>
 
-            <Search_model />
+            <Search_model searched={searched} setSearched={setSearched} />
         </div>
     )
 }

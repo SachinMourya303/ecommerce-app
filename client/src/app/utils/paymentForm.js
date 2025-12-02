@@ -1,4 +1,6 @@
+import axios from "axios";
 import { placeOrderRequest } from "./ordersForm";
+import toast from "react-hot-toast";
 
 export const handlePayment = async (totalAmount, dispatch, navigate, customer_name, customer_email, customer_phone, address, landmark, payment, status, country, state, city, pincode, products) => {
     try {
@@ -19,7 +21,7 @@ export const handlePayment = async (totalAmount, dispatch, navigate, customer_na
                 navigate("/myorders");
             },
 
-            prefill: { email: customer_email, contact: customer_phone },
+            prefill: { email: customer_email, contact: 9359489354 },
             theme: { color: "#7f1d1d" }
         };
 
