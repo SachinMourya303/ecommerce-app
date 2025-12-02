@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { cartDelteRequest } from '../utils/cartForm';
 import { Link, useNavigate } from 'react-router-dom';
+import { setTotalAmount } from '../state-management/slices/userData';
 
 const Cart = () => {
     const carts = useSelector(state => state.userData.carts);
@@ -10,11 +11,14 @@ const Cart = () => {
     const customerToken = useSelector(state => state.userData.customerToken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const totalAmount = carts.reduce(
         (acc, item) => acc + Number(item.price) * item.quantity,
         0
     );
+
+    useEffect(() => {
+        dispatch(setTotalAmount(totalAmount));
+    }, [carts]);
 
     const delteCartProduct = async (id) => {
         await cartDelteRequest(dispatch, id);

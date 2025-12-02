@@ -23,6 +23,7 @@ const Navbar = () => {
         { title: "Shop", href: "/shop/products" },
         { title: "New-Collection", href: "#products" },
         { title: "Category", href: "#category" },
+        { title: "MyOrders", href: "/myorders" },
         { title: "Contact", href: "#contact" },
     ]
 
@@ -31,6 +32,7 @@ const Navbar = () => {
         { title: "Shop", href: "/shop/products" },
         { title: "New-Collection", href: "#products" },
         { title: "Category", href: "#category" },
+        { title: "MyOrders", href: "/myorders" },
         { title: "Contact", href: "#contact" },
         { title: "Theme", value: "theme" },
     ]
