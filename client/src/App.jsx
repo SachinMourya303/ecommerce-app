@@ -10,12 +10,12 @@ import SellerSignUpForm from './app/pages/Form/seller-auth/SellerSignUpForm'
 import SellerSignInForm from './app/pages/Form/seller-auth/SellerSignInForm'
 import AdminSignUpForm from './app/pages/Form/admin/AdminSignUpForm'
 import AdminSignInForm from './app/pages/Form/admin/AdminSignInForm'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import SellerDashboard from './app/pages/sellerDashboard'
 import SellerHomePage from './app/Resuable/SellerHomePage'
 import AddProduct from './app/Resuable/AddProduct'
 import { useDispatch } from 'react-redux'
-import { setAdminAccounts, setCart, setCustomersAccounts, setLoader, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
+import { setAdminAccounts, setCart, setCustomersAccounts, setLoader, setOrders, setProducts, setSellersAccounts } from './app/state-management/slices/userData';
 import All_products from './app/components/All_products';
 import axios from 'axios';
 // import { getSellerAccounts } from './app/utils/sellerForm';
@@ -50,6 +50,10 @@ const App = () => {
   useEffect(() => {
     if (data) {
       dispatch(setProducts(data));
+    }
+
+    if(error){
+      toast.error('Check your internet');
     }
     dispatch(setLoader(isPending));
   }, [data, isPending, dispatch]);
@@ -116,6 +120,21 @@ const App = () => {
       dispatch(setCart(cartQuery.data));
     }
   }, [cartQuery.data]);
+
+  // Orders get request
+  const ordersQuery = useQuery({
+    queryKey: ['orders'],
+    queryFn: async () => {
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URI}/orders/products`);
+      return res.data;
+    }
+  });
+
+  useEffect(() => {
+    if (ordersQuery.data) {
+      dispatch(setOrders(ordersQuery.data));
+    }
+  }, [ordersQuery.data]);
 
   return (
     <div>
