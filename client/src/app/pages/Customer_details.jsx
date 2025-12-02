@@ -1,4 +1,4 @@
-import { Boxes, Building2, Globe, Hash, Loader, Mail, MapPin, MapPinHouse, Phone, User } from 'lucide-react';
+import { Building2, Globe, Hash, Landmark, Loader, Mail, MapPin, MapPinHouse, Phone, User } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,14 +10,14 @@ const Customer_details = () => {
     const loader = useSelector(state => state.userData.loader);
     const darkmode = useSelector(state => state.userData.darkmode);
     const customerToken = useSelector(state => state.userData.customerToken);
-    // console.log(customerToken);
+    console.log(customerToken);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [customerProductsDetails, setCustomerProductsDetails] = useState(null);
-    console.log(customerProductsDetails);
-
+    // console.log(customerProductsDetails);
+    
     const fetchCustomerProductsDetails = () => {
         const filterCustomer = carts.filter((item) => item?.customer_email === customerToken?.email);
         setCustomerProductsDetails(filterCustomer);
@@ -27,26 +27,54 @@ const Customer_details = () => {
         fetchCustomerProductsDetails();
     }, [carts]);
 
+
+
     const [customerInput, setCustomerInput] = useState({
+        product_image: "",
+        product_name: "",
+        customer_name: "",
+        customer_email: "",
         customer_phone: "",
+        store: "",
+        size: "",
+        price: "",
+        quantity: "",
         address: "",
-        city: "",
-        state: "",
+        landmark: "",
+        payment: "",
+        status: "",
         country: "",
-        pincode: ""
+        state: "",
+        city: "",
+        pincode: "",
     })
 
     const customerData = [
-        { InputName: 'name', InputValue: customerToken?.name, icon: User, placeholder: "Enter Name", type: "text", hide: true },
-        { InputName: 'email', InputValue: customerToken?.email, icon: Mail, placeholder: "Enter Email", type: "email", hide: true },
-        { InputName: 'phone', InputValue: customerInput.customer_phone, icon: Phone, placeholder: "Enter Number", type: "number", hide: false },
-        { InputName: 'quantity', InputValue: customerProductsDetails?.quantity, icon: Boxes, placeholder: "Enter Quantity", type: "number", hide: false },
+        { InputName: 'product_name', InputValue: customerToken?.name, icon: User, placeholder: "Enter Name", type: "text", hide: true },
+        { InputName: 'customer_name', InputValue: customerToken?.name, icon: User, placeholder: "Enter Name", type: "text", hide: true },
+        { InputName: 'customer_email', InputValue: customerToken?.email, icon: Mail, placeholder: "Enter Email", type: "email", hide: true },
+        { InputName: 'customer_phone', InputValue: customerInput.customer_phone, icon: Phone, placeholder: "Phone Number", type: "number", hide: false },
         { InputName: 'address', InputValue: customerInput.address, icon: MapPin, placeholder: "Enter Address", type: "text", hide: false },
+        { InputName: 'landmark', InputValue: customerInput.landmark, icon: Landmark, placeholder: "Enter Landmark", type: "text", hide: false },
         { InputName: 'city', InputValue: customerInput.city, icon: Building2, placeholder: "City Name", type: "text", hide: false },
         { InputName: 'state', InputValue: customerInput.state, icon: MapPinHouse, placeholder: "State Name", type: "text", hide: false },
         { InputName: 'country', InputValue: customerInput.country, icon: Globe, placeholder: "Country Name", type: "text", hide: false },
         { InputName: 'pincode', InputValue: customerInput.pincode, icon: Hash, placeholder: "Pinode", type: "text", hide: false },
     ]
+
+    const orderData = {
+        customer_name: customerToken.name,
+        customer_email: customerToken.email,
+        customer_phone: customerInput.customer_phone,
+        address: customerInput.address,
+        landmark: customerInput.landmark,
+        city: customerInput.city,
+        state: customerInput.state,
+        country: customerInput.country,
+        pincode: customerInput.pincode,
+        payment: customerInput.payment,
+        products: customerProductsDetails
+    };
 
     return (
         <div className={`${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} flex items-center justify-center flex items-center top-0 w-full`}>
@@ -84,7 +112,7 @@ const Customer_details = () => {
                         </select>
                     </div>
 
-                     <div className={`w-full md:w-[45%] flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 rounded-lg font-medium cursor-pointer px-2`}>
+                    <div className={`w-full md:w-[45%] flex items-center gap-2 my-3 border border-amber-700 border-b-5 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 rounded-lg font-medium cursor-pointer px-2`}>
                         <select name="" id="" className='outline-none w-full py-2.5'>
                             <option value="">Payment Method</option>
                             <option value="S">Cash On Delivery</option>
