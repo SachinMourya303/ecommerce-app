@@ -1,22 +1,23 @@
 import { BadgeInfo, Loader, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { productDelteRequest } from '../utils/productRequest';
+import { orderDelteRequest } from '../utils/ordersForm';
+import Footer from '../sections/Footer';
 
 const Myorders = () => {
   const orders = useSelector(state => state.userData.orders);
-
+  const darkmode = useSelector(state => state.userData.darkmode);
   const customerToken = useSelector(state => state.userData.customerToken);
   const dispatch = useDispatch();
 
   const loader = useSelector(state => state.userData.loader);
 
   const deleteProduct = async (id) => {
-    await productDelteRequest(dispatch, id);
+    await orderDelteRequest(dispatch, id);
   }
 
   return (
-    <div className="w-full flex-1 flex flex-col justify-between">
+    <div className={`w-full flex-1 flex flex-col justify-between transition-all ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'}`}>
       <div className="px-6 md:px-16 2xl:px-96 mt-5">
         <h2 className="pb-4 text-lg font-medium">All orders</h2>
 
@@ -48,7 +49,7 @@ const Myorders = () => {
                         </div>
                       </td>
 
-                      <td className="px-4 py-3 max-sm:hidden">₹ {p.price}</td>
+                      <td className="px-4 py-3 max-sm:hidden truncate">₹ {p.price}</td>
                       <td className="py-3 max-sm:hidden">
                         <div className='flex flex-col gap-2'>
                           <span>Address: {order.address} {order.city} {order.state}</span>
@@ -60,7 +61,7 @@ const Myorders = () => {
                       </td>
 
                       <td className="px-4 py-3">
-                        <div className='flex flex-col gap-2'>
+                        <div className='flex flex-col gap-2 max-md:text-xs'>
                           <span>Status: {order.status}</span>
                           <span>Payment: {order.payment}</span>
                         </div>
@@ -71,7 +72,7 @@ const Myorders = () => {
                           {loader ? (
                             <Loader className="size-4 text-red-500" />
                           ) : (
-                            <button className='text-red-500'>Cancel Order</button>
+                            <button className='text-red-500 bg-red-50 text-xs border border-red-200 p-2 rounded-lg cursor-pointer'>Cancel Order</button>
                           )}
                         </label>
                       </td>
@@ -84,6 +85,7 @@ const Myorders = () => {
           </table>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

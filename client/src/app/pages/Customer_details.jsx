@@ -136,7 +136,7 @@ const Customer_details = () => {
                 <button type='submit' className={`w-[50%] md:w-[30%] flex items-center justify-center my-3 bg-amber-500 mt-10 ${darkmode ? 'hover:bg-rose-900 text-rose-600 ' : 'hover:bg-rose-100 text-rose-900 '} transition-all active:scale-95 py-2.5 rounded-lg font-medium cursor-pointer`}>
                     {loader ? <Loader className='animate-spin' /> : 'Place Order'}
                 </button>
-                <Link to='/cart/products' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
+                <Link to='/cart' className='text-rose-900 w-full flex justify-center' >Go Back</Link>
 
             </form>
         </div>
