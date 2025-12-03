@@ -9,8 +9,9 @@ import Footer from '../sections/Footer';
 const Cart = () => {
     const carts = useSelector(state => state.userData.carts);
     const loader = useSelector(state => state.userData.loader);
-    console.log(loader);
-    
+    const darkmode = useSelector(state => state.userData.darkmode);
+
+
     const customerToken = useSelector(state => state.userData.customerToken);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,8 +40,8 @@ const Cart = () => {
     }, [carts, loader]);
 
     return (
-        <div className='w-full transition-all'>
-            <div className="flex flex-col md:flex-row mt-10 w-full px-6 md:px-16 2xl:px-96">
+        <div className={`w-full transition-all ${darkmode ? 'bg-black text-white' : 'bg-white text-black'}`}>
+            <div className="flex flex-col md:flex-row pt-10 w-full px-6 md:px-16 2xl:px-96">
                 <div className='w-full md:w-[70%]'>
                     <h1 className="text-3xl font-medium mb-6">
                         Shopping Cart <span className="text-sm text-indigo-500">3 Items</span>
@@ -83,7 +84,7 @@ const Cart = () => {
 
                 </div>
 
-                <div className="w-full md:w-[30%] h-70 bg-gray-100/40 p-5 max-md:mt-16 border border-gray-300/70">
+                <div className={`w-full md:w-[30%] h-70 ${darkmode ? 'bg-white text-black' : 'bg-gray-100/40'} p-5 max-md:mt-16 border border-gray-300/70`}>
                     <h2 className="text-xl md:text-xl font-medium py-2">Order Summary</h2>
                     <hr className="border-gray-300" />
 

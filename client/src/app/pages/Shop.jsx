@@ -11,7 +11,7 @@ const Shop = () => {
 
     return (
         <div>
-            <div className='mt-10 px-6 md:px-16 2xl:px-96'>
+            <div className={`pt-10 px-6 md:px-16 2xl:px-96 ${darkmode ? 'bg-black text-white' : 'bg-white text-black'}`}>
                 <nav className={`text-xs ${darkmode ? 'text-rose-700' : 'text-rose-900'}`}>
                     <Link to='/'>Home</Link> /  <Link className={`${darkmode ? 'text-gray-300' : 'text-gray-500'}`}>Shop</Link>
                 </nav>

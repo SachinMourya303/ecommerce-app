@@ -97,7 +97,7 @@ const Orders = () => {
                                                     loader ? <Loader className='size-4 text-green-500' />
                                                         : <div>
                                                             {
-                                                                orderStatus !== "" ? <button onClick={() => {updateOrderStatus(order.customer_email); dispatch(setLoader(true))}} className='w-full bg-green-50 text-green-500 border border-green-100 rounded-lg p-2 active:scale-95 cursor-pointer outline-none'>Update</button> : ""
+                                                                orderStatus !== "" ? <button onClick={() => {updateOrderStatus(order.customer_email); dispatch(setLoader(true)); setOrderStatus("")}} className='w-full bg-green-50 text-green-500 border border-green-100 rounded-lg p-2 active:scale-95 cursor-pointer outline-none'>Update</button> : ""
                                                             }
                                                         </div>
                                                 }

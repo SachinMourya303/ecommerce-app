@@ -9,6 +9,7 @@ const AdminHomePage = () => {
   const sellersAccounts = useSelector(state => state.userData.sellersAccounts);
   const approvedProducts = products.filter((item) => item.productDetails.valid === true);
   const customerAccounts = useSelector(state => state.userData.customerAccounts);
+  const orders = useSelector(state => state.userData.orders);
   const revenue = approvedProducts.reduce((acc, item) => {
     const price = Number(item.productDetails.price) || 0;
     return acc + price;
@@ -29,14 +30,14 @@ const AdminHomePage = () => {
     { name: "Customers", value: customerAccounts?.length },
     { name: "Sellers", value: sellersAccounts?.length },
     { name: "Approved", value: approvedProducts?.length },
-    { name: "Revenue", value: revenue },
+    { name: "Orders", value: orders.length },
   ];
 
 
   return (
     <>
-        <Analytics analytics={analytics} />
-        <Customer_pie_chart data={data} />
+      <Analytics analytics={analytics} />
+      <Customer_pie_chart data={data} />
     </>
   )
 }
