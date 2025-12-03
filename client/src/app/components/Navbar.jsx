@@ -91,7 +91,7 @@ const Navbar = () => {
                         ))
                     }
                 </div>
-                <div className='flex gap-2 md:gap-5 items-center'>
+                <div className='flex gap-3 md:gap-5 items-center'>
                     <div onClick={() => setSearched(null)} className="relative cursor-pointer xl:hidden">
                         <SearchIcon className={`${darkmode ? 'text-white' : 'text-app-icon-light-color'}`} />
                     </div>
