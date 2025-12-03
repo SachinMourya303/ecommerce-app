@@ -31,3 +31,16 @@ export const orderDelteRequest = async (dispatch, id) => {
         dispatch(setLoader(false));
     }
 }
+
+export const updateOrderStatusRequest = async (dispatch , customer_email , updateStatus) => {
+    try {
+        const response = await axios.put(`${import.meta.env.VITE_SERVER_URI}/status/update`, { customer_email , updateStatus });
+        toast.success(response?.data?.message);
+        queryClient.invalidateQueries(['orders']);
+    } catch (error) {
+        toast.error(error.response?.data?.message);
+    }
+    finally {
+        dispatch(setLoader(false));
+    }
+}

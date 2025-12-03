@@ -73,7 +73,7 @@ const Navbar = () => {
         <div>
             <nav className={`flex border-b border-gray-200 items-center justify-between px-2 md:px-16 2xl:px-96 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} relative transition-all`}>
 
-                <figure className='h-8'>
+                <figure onClick={() => navigate('/')} className='h-8'>
                     <img src={darkmode ? logos.logo2 : logos.logo1} alt="logo" className='h-full' />
                 </figure>
 
