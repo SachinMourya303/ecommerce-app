@@ -13,7 +13,7 @@ const RelatedProducts = () => {
       <div className='flex flex-wrap gap-3 mt-5'>
         {
           products.filter((item) => item?.productDetails?.category === filterProduct[0]?.productDetails?.category).map((item, index) => (
-            <figure onClick={() => navigate(`/product/${item._id}`)} key={index} className='w-32 xl:w-60 border border-gray-200 rounded-lg overflow-hidden cursor-pointer'>
+            <figure onClick={() => navigate(`/product/${item._id}`)} key={index} className='w-[47%] md:w-32 xl:w-60 border border-gray-200 rounded-lg overflow-hidden cursor-pointer'>
               <img src={item.productImage.image1} alt="product-img" className='w-full h-32 xl:h-60' />
               <figcaption className='flex flex-col gap-2 p-1 md:p-5'>
                 <span className='text-gray-500'>{item.productDetails.name}</span>
