@@ -31,6 +31,7 @@ import Shop from './app/pages/Shop';
 import Cart from './app/pages/Cart';
 import Myorders from './app/pages/Myorders';
 import Customer_details from './app/pages/Customer_details';
+import Orders from './app/Resuable/Orders';
 
 const App = () => {
   // product get request
@@ -165,6 +166,7 @@ const App = () => {
           <Route path='products' element={<Admin_All_products />} />
           <Route path='customers' element={<Customers />} />
           <Route path='sellers' element={<Sellers />} />
+          <Route path='orders' element={<Orders />} />
           <Route path='admin' element={<Admin />} />
         </Route>
 

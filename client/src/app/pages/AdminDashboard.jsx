@@ -1,4 +1,4 @@
-import { BadgePlus, LayoutDashboard, ShieldUser, Shirt, Store, Users } from 'lucide-react';
+import { BadgePlus, LayoutDashboard, Package, ShieldUser, Shirt, Store, Users } from 'lucide-react';
 import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom';
 import Navbar from '../Resuable/Navbar';
@@ -13,6 +13,7 @@ const AdminDashboard = () => {
     { name: "Products List", path: "products", icon: Shirt },
     { name: "Customers", path: "customers", icon: Users },
     { name: "Sellers", path: "sellers", icon: Store },
+    { name: "Orders", path: "orders", icon: Package },
     { name: "Admin", path: "admin", icon: ShieldUser },
   ];
 
