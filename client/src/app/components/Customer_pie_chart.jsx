@@ -2,10 +2,10 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 
 const Customer_bar_chart = ({ data }) => {
 
-    const COLORS = ["purple", "#f59e0b", "#10b981", "#6366f1"];
+    const COLORS = ["purple", "#f59e0b", "skyblue", "#10b981" , "#6366f1"];
 
     return (
-        <div className="hidden md:flex mt-5 bg-rose-700 p-5 rounded-lg border-t-5 border-b-5 border-amber-500 transition duration-500">
+        <div className="w-[75%] mt-10 hidden md:flex mt-5 bg-rose-700 p-5 rounded-lg border-t-5 border-b-5 border-amber-500 transition duration-500">
             <div className="w-full h-70">
                 <ResponsiveContainer>
                     <BarChart data={data}>

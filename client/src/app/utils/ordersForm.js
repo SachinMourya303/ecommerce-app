@@ -34,7 +34,7 @@ export const orderDelteRequest = async (dispatch, id) => {
 
 export const updateOrderStatusRequest = async (dispatch , customer_email , updateStatus) => {
     try {
-        const response = await axios.put(`${import.meta.env.VITE_SERVER_URI}/status/update`, { customer_email , updateStatus });
+        const response = await axios.put(`${import.meta.env.VITE_SERVER_URI}/orders/update`, { customer_email , updateStatus });
         toast.success(response?.data?.message);
         queryClient.invalidateQueries(['orders']);
     } catch (error) {

@@ -48,6 +48,12 @@ const Product_preview = () => {
         await addToCartRequest(dispatch, customerToken, customer_email, product_image, product_name, price, quantity);
     }
 
+    const navigateTo = () => {
+        if(customerToken){
+          navigate('/cart/customer/details');
+        }
+    }
+
     return (
         <div>
             <div className={`${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} px-6 md:px-16 2xl:px-96 py-3 transition-all`}>
@@ -86,7 +92,7 @@ const Product_preview = () => {
                                         loader ? <Loader className='animate-spin' /> : <span className='flex gap-2'><ShoppingCart />Add to Cart</span>
                                     }
                                 </button>
-                                <button onClick={() => {addToCartForm(); navigate('/cart/customer/details')}} className='flex gap-2 justify-center bg-rose-900 w-[49%] py-3 text-white rounded-lg hover:opacity-90 cursor-pointer truncate'>
+                                <button onClick={() => {addToCartForm(); navigateTo()}} className='flex gap-2 justify-center bg-rose-900 w-[49%] py-3 text-white rounded-lg hover:opacity-90 cursor-pointer truncate'>
                                     {
                                         loader ? <Loader className='animate-spin' /> : <span className='flex gap-2'> Buy Now <ChevronRight /></span>
                                     }

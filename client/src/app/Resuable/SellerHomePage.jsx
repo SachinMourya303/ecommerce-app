@@ -25,7 +25,6 @@ const SellerHomePage = () => {
     const data = [
         { name: "Products", value: totalProcucts?.length },
         { name: "Approved", value: approvedProducts?.length },
-        { name: "Revenue", value: revenue },
     ];
   return (
     <>

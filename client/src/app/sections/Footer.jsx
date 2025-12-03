@@ -2,8 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link'
 import { logos } from '../../assets/assets'
+import { useSelector } from 'react-redux'
 
 const Footer = () => {
+    const darkmode = useSelector(state => state.userData.darkmode);
 
     const links = [
         { title: "Home", href: "/" },
@@ -15,7 +17,8 @@ const Footer = () => {
     ]
 
     return (
-        <footer id='contact' className="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full bg-rose-900 text-white pt-10">
+        <div className={`pt-20 ${darkmode ? 'bg-black text-white' : 'bg-white text-black'}`}>
+            <footer id='contact' className="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full bg-rose-900 text-white">
             <div className="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-500/30 pb-6">
                 <div className="md:max-w-96">
                     <figure className='h-8'>
@@ -39,7 +42,7 @@ const Footer = () => {
                     <div>
                         <h2 className="font-semibold mb-5">Get in touch</h2>
                         <div className="text-sm space-y-2">
-                            <p>+9359489354</p>
+                            <a href="tel:+919359489354">+91 9359489354</a>
                             <p className='max-md:text-xs'>trendora@gmail.com</p>
                         </div>
                     </div>
@@ -49,6 +52,7 @@ const Footer = () => {
                 Copyright 2025 © Trendora. All Right Reserved.
             </p>
         </footer>
+        </div>
     )
 }
 
