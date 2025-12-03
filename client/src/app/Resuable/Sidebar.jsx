@@ -1,15 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { logos } from '../../assets/assets';
 
 const Sidebar = ({ sidebarLinks, menu, setMenu }) => {
     const darkmode = useSelector(state => state.userData.darkmode);
+    const navigate = useNavigate();
 
     return (
         <div className={`${darkmode ? 'bg-black' : 'bg-rose-900 text-white'} lg:w-64 w-13 border-r-2 border-b border-amber-500 h-screen text-base flex flex-col transition-all duration-300`}>
             <div className='h-16 border-b border-amber-500 flex items-center p-1 md:px-4'>
-                <div className='text-xl'>
+                <div onClick={() => navigate('/')} className='text-xl'>
                     <img src={logos.logo2} alt="logo" className='hidden md:block'/>
                     <img src="/public/logo.png" alt="logo" className='block md:hidden'/>
                 </div>

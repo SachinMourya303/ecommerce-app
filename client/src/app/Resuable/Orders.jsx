@@ -1,10 +1,12 @@
 import { BadgeInfo, Loader, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { orderDelteRequest } from '../utils/ordersForm';
+import { orderDelteRequest, updateOrderStatusRequest } from '../utils/ordersForm';
+import { setLoader } from '../state-management/slices/userData';
 
 const Orders = () => {
     const orders = useSelector(state => state.userData.orders);
+
     const darkmode = useSelector(state => state.userData.darkmode);
     const customerToken = useSelector(state => state.userData.customerToken);
     const dispatch = useDispatch();
@@ -13,6 +15,13 @@ const Orders = () => {
 
     const deleteProduct = async (id) => {
         await orderDelteRequest(dispatch, id);
+    }
+
+    const [orderStatus, setOrderStatus] = useState("");
+
+    const updateStatus = orderStatus;
+    const updateOrderStatus = (customer_email) => {
+        updateOrderStatusRequest(dispatch, customer_email, updateStatus);
     }
 
     return (
@@ -73,7 +82,7 @@ const Orders = () => {
 
                                                 {loader
                                                     ? <Loader className='size-4 text-rose-500' />
-                                                    : <select className='w-full bg-blue-50 text-blue-500 border border-blue-100 rounded-lg p-2 active:scale-95 cursor-pointer outline-none'>
+                                                    : <select onChange={(e) => setOrderStatus(e.target.value)} value={orderStatus} className='w-full bg-blue-50 text-blue-500 border border-blue-100 rounded-lg p-2 active:scale-95 cursor-pointer outline-none'>
                                                         <option value="">Update Status</option>
                                                         <option value="Processing">Processing</option>
                                                         <option value="Ready for Dispatch">Ready for Dispatch</option>
@@ -82,6 +91,15 @@ const Orders = () => {
                                                         <option value="Out for Delivery">Out for Delivery</option>
                                                         <option value="Delivered">Delivered</option>
                                                     </select>
+                                                }
+
+                                                {
+                                                    loader ? <Loader className='size-4 text-green-500' />
+                                                        : <div>
+                                                            {
+                                                                orderStatus !== "" ? <button onClick={() => {updateOrderStatus(order.customer_email); dispatch(setLoader(true))}} className='w-full bg-green-50 text-green-500 border border-green-100 rounded-lg p-2 active:scale-95 cursor-pointer outline-none'>Update</button> : ""
+                                                            }
+                                                        </div>
                                                 }
                                             </label>
                                         </td>

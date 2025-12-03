@@ -2,10 +2,19 @@ import React from 'react'
 import { background } from '../../assets/assets'
 import { Banknote, ShoppingBasket, Truck } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
+    const adminToken = useSelector(state => state.userData.adminToken);
     const year = new Date(Date.now()).getFullYear();
+    const navigate = useNavigate();
+
+    const navigateTo = () => {
+            if (adminToken) return navigate("/account/admin/dashboard");
+            return navigate("/account/type/admin/signin");
+    };
+
     return (
         <div className='w-full 2xl:px-90 transition-all'>
             <div className='w-full border-5 lg:border-10 border-amber-500 overflow-hidden'>
@@ -22,6 +31,9 @@ const HeroSection = () => {
                         <span className='text-5xl lg:text-7xl w-full'>New</span>
                         <span className='colletion-title text-7xl lg:text-9xl w-full text-center text-amber-500'>Collection</span>
                         <span className='text-5xl lg:text-7xl w-full text-end'>{year}</span>
+                        <div className='w-full text-end'>
+                            <button onClick={navigateTo} className='opacity-0'>Admin</button>
+                        </div>
                     </figcaption>
                 </div>
             </div>

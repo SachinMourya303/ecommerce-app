@@ -9,12 +9,10 @@ const Authentication = () => {
     const darkmode = useSelector(state => state.userData.darkmode);
     const customerToken = useSelector(state => state.userData.customerToken);
     const sellersToken = useSelector(state => state.userData.sellersToken);
-    const adminToken = useSelector(state => state.userData.adminToken);
 
     const btn = [
         { title: "Customer", href: "/account/type/customer/signin", login: "/", icon: UserRound },
         { title: "Seller", href: "/account/type/seller/signin", login: "/account/seller/dashboard", icon: Store },
-        { title: "Admin", href: "/account/type/admin/signin", login: "/account/admin/dashboard", icon: ShieldUser },
     ]
 
     const navigateTo = (auth) => {
