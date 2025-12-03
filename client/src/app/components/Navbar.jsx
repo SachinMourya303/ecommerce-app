@@ -7,6 +7,7 @@ import { setSearchDropdown } from '../state-management/slices/popup'
 import { useNavigate } from 'react-router-dom';
 import { setCustomerToken, setDarkmode } from '../state-management/slices/userData';
 import { logos } from '../../assets/assets';
+import { Skeleton } from 'primereact/skeleton';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -38,19 +39,36 @@ const Navbar = () => {
         { title: "Theme", value: "theme" },
     ]
 
-    const [cartCount , setCartCount] = useState(0);
+    const [cartCount, setCartCount] = useState(0);
     const totalCartCount = () => {
         const filterCustomer = carts.filter((item) => item?.customer_email === customerToken?.email);
         setCartCount(filterCustomer);
     }
     useEffect(() => {
-       totalCartCount();
+        totalCartCount();
     }, [carts]);
 
-    const [searched , setSearched] = useState("");
-    console.log(searched);
-    
-    
+    const [searched, setSearched] = useState("");
+
+    const loader = useSelector(state => state.userData.loader);
+
+    if (loader)
+        return (
+            <div className='flex items-center px-2 md:px-16 2xl:px-96 py-3 justify-between'>
+                <Skeleton className='w-40! h-8!'/>
+                <Skeleton className='w-100! h-8! max-md:hidden'/>
+                <Skeleton className='w-20! h-8! max-md:hidden'/>
+                <Skeleton className='w-20! h-8! max-md:hidden'/>
+                <Skeleton className='w-20! h-8! max-md:hidden'/>
+                <Skeleton className='w-20! h-8! max-md:hidden'/>
+                <Skeleton className='w-20! h-8! max-md:hidden'/>
+                <Skeleton className='w-20! h-8! max-md:hidden'/>
+                <Skeleton className='w-8! h-8! rounded-full!'/>
+                <Skeleton className='w-8! h-8! rounded-full!'/>
+                <Skeleton className='w-8! h-8! rounded-full! md:hidden'/>
+            </div>
+        );
+
     return (
         <div>
             <nav className={`flex border-b border-gray-200 items-center justify-between px-2 md:px-16 2xl:px-96 py-3 ${darkmode ? 'bg-black text-white' : 'bg-white text-app-text-medium-color'} relative transition-all`}>
@@ -74,7 +92,7 @@ const Navbar = () => {
                     }
                 </div>
                 <div className='flex gap-2 md:gap-5 items-center'>
-                    <div onClick={() => navigate('/cart')} className="relative cursor-pointer xl:hidden">
+                    <div onClick={() => setSearched(null)} className="relative cursor-pointer xl:hidden">
                         <SearchIcon className={`${darkmode ? 'text-white' : 'text-app-icon-light-color'}`} />
                     </div>
                     <div onClick={() => navigate('/cart')} className="relative cursor-pointer">
@@ -90,7 +108,7 @@ const Navbar = () => {
                                 <div>
                                     {
                                         dropdown &&
-                                        <div className='absolute z-1 top-15 rounded-lg text-gray-500 bg-white border border-gray-200 py-2 px-5 right-10'>
+                                        <div className='absolute z-2 top-15 rounded-lg text-gray-500 bg-white border border-gray-200 py-2 px-5 right-10'>
                                             <div className='flex flex-col'>
                                                 <span className='flex items-center gap-2 border-b border-gray-200 hover:bg-amber-100 py-2 hover:rounded-lg'> <User className='size-5' /> {customerToken.name}</span>
                                                 <span className='flex items-center gap-2 border-b border-gray-200 hover:bg-amber-100 py-2 hover:rounded-lg'> <Mail className='size-5' /> {customerToken.email}</span>
