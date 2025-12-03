@@ -49,4 +49,30 @@ ordersRoutes.delete('/delete', async (req, res) => {
     }
 });
 
+ordersRoutes.put('/update', async (req, res) => {
+    try {
+        const { customer_email, updateStatus } = req.body;
+
+        if (!customer_email) {
+            return res.status(400).json({ success: false, message: "Email Id is required" });
+        }
+
+        const updatedOrder = await ordersModel.findOneAndUpdate(
+            { customer_email },
+            { $set: { status: updateStatus } },
+            { new: true }
+        );
+
+        if (!updatedOrder) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+
+        res.json({ success: true, message: "Order updated", data: updatedOrder });
+
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+
 export default ordersRoutes;
