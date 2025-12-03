@@ -5,6 +5,7 @@ import category3 from './images/category3.png'
 import category4 from './images/category4.png'
 import category5 from './images/category5.png'
 import category6 from './images/category6.png'
+import logo from './images/logo.png'
 import logo1 from './images/logo1.png'
 import logo2 from './images/logo2.png'
 
@@ -22,6 +23,7 @@ export const category = [
 ]
 
 export const logos = {
+    logo,
     logo1,
     logo2
 }

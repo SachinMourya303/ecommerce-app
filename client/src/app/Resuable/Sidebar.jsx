@@ -11,8 +11,8 @@ const Sidebar = ({ sidebarLinks, menu, setMenu }) => {
         <div className={`${darkmode ? 'bg-black' : 'bg-rose-900 text-white'} lg:w-64 w-13 border-r-2 border-b border-amber-500 h-screen text-base flex flex-col transition-all duration-300`}>
             <div className='h-16 border-b border-amber-500 flex items-center p-1 md:px-4'>
                 <div onClick={() => navigate('/')} className='text-xl'>
-                    <img src={logos.logo2} alt="logo" className='hidden md:block'/>
-                    <img src="/public/logo.png" alt="logo" className='block md:hidden'/>
+                    <img src={logos.logo2} alt="logo" className='max-lg:hidden'/>
+                    <img src={logos.logo} alt="logo" className='lg:hidden'/>
                 </div>
             </div>
             {sidebarLinks.map((item, index) => (

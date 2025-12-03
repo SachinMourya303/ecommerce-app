@@ -22,7 +22,7 @@ const SellerDashboard = () => {
         <Sidebar sidebarLinks={sidebarLinks} menu={menu} setMenu={setMenu} />
         <div className='w-full'>
           <Navbar user="Seller Account" logout="Seller" />
-          <div className='m-2 md:m-5 w-[90%] md:w-[80%] md:h-screen'><Outlet message="hi" /></div>
+          <div className='m-2 md:m-5 w-full xl:w-[80%] md:h-screen'><Outlet message="hi" /></div>
         </div>
       </div>
     </div>
