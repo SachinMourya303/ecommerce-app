@@ -25,7 +25,7 @@ const AdminDashboard = () => {
         <Sidebar sidebarLinks={sidebarLinks} menu={menu} setMenu={setMenu} />
         <div className='w-full'>
           <Navbar user="Admin Account" logout="Admin" />
-          <div className='m-2 md:m-5 w-[90%] md:w-[80%]'><Outlet /></div>
+          <div className='m-2 md:m-5 w-full xl:w-[80%]'><Outlet /></div>
         </div>
       </div>
     </div>
